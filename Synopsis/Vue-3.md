@@ -1,56 +1,96 @@
-# Ultimate Vue 3 Cheat Sheet
-
-## ⭐ Description
-
-Vue 3 is a modern JavaScript framework for building reactive web interfaces and single-page applications. It features the Composition API, improved performance, and TypeScript support.
-
-## ⭐ Relationship With Other Technologies
-
--   **HTML:** Vue templates are written in HTML syntax with special directives.
--   **CSS/SCSS:** Scoped or global styles for components.
--   **JS/TS:** Vue logic written in JS or TS.
--   **Nuxt, Angular:** Competing frameworks; Nuxt built on Vue.
--   **Node/Express:** Vue apps often consume APIs served by Node/Express.
--   **Electron:** Vue can build desktop apps via Electron.
+# Vue 3 (Vue.js): сучасний конспект 2024+
 
 ---
 
-## 1. Project Structure
+## Зміст
 
-```
-src/
-  components/
-  views/
-  assets/
-  App.vue
-  main.js / main.ts
-  router/
-  store/
-  composables/
-```
-
--   Single File Components (SFC): `.vue` files contain `<template>`, `<script>`, `<style>`
+-   [Вступ](#вступ)
+-   [Що таке Vue 3](#що-таке-vue-3)
+-   [Історія та роль Vue](#історія-та-роль-vue)
+-   [Встановлення та старт проекту](#встановлення-та-старт-проекту)
+-   [Основи синтаксису](#основи-синтаксису)
+-   [Структура компоненту](#структура-компоненту)
+-   [Реактивність: ref, reactive, computed, watch](#реактивність-ref-reactive-computed-watch)
+-   [Життєвий цикл компоненту](#життєвий-цикл-компоненту)
+-   [Props, emits, slots](#props-emits-slots)
+-   [Композиційний API vs Опціональний API](#композиційний-api-vs-опціональний-api)
+-   [Роутінг (Vue Router)](#роутінг-vue-router)
+-   [Стан додатку (Pinia)](#стан-додатку-pinia)
+-   [Взаємодія з сервером (Fetch, Axios)](#взаємодія-з-сервером-fetch-axios)
+-   [Формування шаблонів та рендеринг](#формування-шаблонів-та-рендеринг)
+-   [Директиви (v-if, v-for, v-model, v-bind, v-on)](#директиви-v-if-v-for-v-model-v-bind-v-on)
+-   [Компоненти та реюзабельність](#компоненти-та-реюзабельність)
+-   [Слоти, Provide/Inject, Teleport](#слоти-provideinject-teleport)
+-   [Composition API: поглиблений розбір](#composition-api-поглиблений-розбір)
+-   [Внутрішні механізми: реактивність, virtual DOM, performance traps](#внутрішні-механізми-реактивність-virtual-dom-performance-traps)
+-   [TypeScript у Vue 3](#typescript-у-vue-3)
+-   [Тестування (Vitest, Cypress)](#тестування-vitest-cypress)
+-   [Безпека та типові пастки](#безпека-та-типові-пастки)
+-   [Best practices](#best-practices)
+-   [Корисні ресурси та документація](#корисні-ресурси-та-документація)
+-   [Короткий підсумок](#короткий-підсумок)
 
 ---
 
-## 2. Single File Component (SFC)
+## Вступ
+
+**Vue 3 (Vue.js)** — сучасний прогресивний JavaScript-фреймворк для створення UI, SPA та складних фронтенд-додатків.  
+Відрізняється легкістю, швидкістю, гнучкістю, чудовою інтеграцією з TypeScript і потужним Composition API.  
+У 2024+ році Vue 3 — вибір для scalable, reactive, testable front-end проектів будь-якого рівня складності.
+
+---
+
+## Що таке Vue 3
+
+Vue 3 — це open source JavaScript-фреймворк для побудови інтерфейсів, SPA, PWA та великих enterprise-додатків.
+
+-   **Реактивність (reactivity)** — автоматичне оновлення UI при зміні стану.
+-   **Компонентна архітектура** — UI розбивається на незалежні частини.
+-   **Composition API** — гнучкість, реюзабельність логіки, чудова інтеграція з TypeScript.
+
+---
+
+## Історія та роль Vue
+
+-   **2014:** Старт Vue.js (Evan You).
+-   **2017:** Vue 2 — масова популярність серед розробників.
+-   **2020+:** Vue 3 — революція: Composition API, Teleport, Suspense, покращена продуктивність.
+-   **2024+:** Vue 3 — вибір для стартапів, enterprise, мобільних та desktop UI (Electron, Tauri).
+
+---
+
+## Встановлення та старт проекту
+
+### Через CLI
+
+```bash
+npm create vue@latest
+# Або
+pnpm create vue@latest
+```
+
+### Через Vite (рекомендовано)
+
+```bash
+npm create vite@latest my-vue-app -- --template vue
+cd my-vue-app
+npm install
+npm run dev
+```
+
+---
+
+## Основи синтаксису
+
+### Створення простого компоненту
 
 ```vue
 <template>
-    <div>
-        <h1>{{ title }}</h1>
-        <button @click="increment">Click me</button>
-        <p>Count: {{ count }}</p>
-    </div>
+    <h1>Вітаємо у Vue 3!</h1>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-const title = ref("Hello Vue 3");
-const count = ref(0);
-function increment() {
-    count.value++;
-}
+<script setup>
+const message = "Це компонент з Composition API";
 </script>
 
 <style scoped>
@@ -62,29 +102,128 @@ h1 {
 
 ---
 
-## 3. Composition API
+## Структура компоненту
 
--   Reactive References: `ref`, `reactive`
--   Lifecycle Hooks: `onMounted`, `onUnmounted`, `onUpdated`, `onBeforeMount`, etc.
--   Computed Properties: `computed`
--   Watchers: `watch`, `watchEffect`
--   Provide/Inject: Dependency injection for components.
+```vue
+<template>
+    <div>
+        <h2>{{ title }}</h2>
+        <button @click="increment">Додати</button>
+        <p>Лічильник: {{ count }}</p>
+    </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const title = "Demo Компонент";
+const count = ref(0);
+
+function increment() {
+    count.value++;
+}
+</script>
+
+<style scoped>
+/* Стилі тільки для цього компоненту */
+</style>
+```
+
+---
+
+## Реактивність: ref, reactive, computed, watch
+
+### ref
 
 ```js
-import { ref, computed, watch, onMounted } from "vue";
+import { ref } from "vue";
 const count = ref(0);
+count.value++; // реактивно
+```
+
+### reactive
+
+```js
+import { reactive } from "vue";
+const state = reactive({ clicks: 0, isActive: true });
+state.clicks++;
+```
+
+### computed
+
+```js
+import { computed } from "vue";
 const double = computed(() => count.value * 2);
-watch(count, (newVal) => {
-    console.log(newVal);
-});
-onMounted(() => {
-    console.log("Mounted!");
+```
+
+### watch
+
+```js
+import { watch } from "vue";
+watch(count, (newVal, oldVal) => {
+    console.log("Лічильник змінився:", newVal);
 });
 ```
 
 ---
 
-## 4. Options API (Classic)
+## Життєвий цикл компоненту
+
+-   `onMounted` — компонент змонтовано
+-   `onUpdated` — оновлено
+-   `onUnmounted` — демонтовано
+
+```js
+import { onMounted, onUnmounted } from "vue";
+
+onMounted(() => {
+    console.log("Компонент змонтовано!");
+});
+onUnmounted(() => {
+    console.log("Компонент демонтовано!");
+});
+```
+
+---
+
+## Props, emits, slots
+
+### Props
+
+```vue
+<script setup>
+defineProps<{ title: string; count?: number }>();
+</script>
+```
+
+### Emits
+
+```vue
+<script setup>
+const emit = defineEmits<['increment']>();
+function handleClick() {
+  emit('increment');
+}
+</script>
+```
+
+### Slots
+
+```vue
+<template>
+    <slot name="header"></slot>
+    <slot></slot>
+</template>
+```
+
+---
+
+## Композиційний API vs Опціональний API
+
+-   **Composition API** — сучасний підхід (реактивність, логіка в функціях, TypeScript-friendly).
+-   **Options API** — класичний стиль (data, methods, computed, watch).
+
+#### Приклад Options API
 
 ```js
 export default {
@@ -96,49 +235,38 @@ export default {
             this.count++;
         },
     },
-    computed: {
-        double() {
-            return this.count * 2;
-        },
-    },
-    watch: {
-        count(val) {
-            console.log(val);
-        },
-    },
-    mounted() {
-        console.log("Mounted!");
-    },
 };
 ```
 
----
+#### Приклад Composition API
 
-## 5. Directives
-
--   `v-bind`: Bind attribute
--   `v-model`: Two-way binding
--   `v-if`, `v-else`, `v-else-if`: Conditional rendering
--   `v-for`: List rendering
--   `v-on`: Event binding (shorthand: `@`)
--   `v-show`: Toggle visibility
--   `v-slot`: Scoped slots
--   `v-pre`, `v-cloak`, `v-once`: Miscellaneous
-
-```vue
-<input v-model="value" :disabled="isDisabled">
-<ul>
-  <li v-for="item in items" :key="item.id">{{ item.text }}</li>
-</ul>
-<button @click="doSomething">Click</button>
+```js
+<script setup>
+import { ref } from 'vue';
+const count = ref(0);
+function increment() {
+  count.value++;
+}
+</script>
 ```
 
 ---
 
-## 6. Routing (Vue Router 4)
+## Роутінг (Vue Router)
+
+### Встановлення
+
+```bash
+npm install vue-router@4
+```
+
+### Основи налаштування
 
 ```js
 import { createRouter, createWebHistory } from "vue-router";
+import Home from "./views/Home.vue";
+import About from "./views/About.vue";
+
 const routes = [
     { path: "/", component: Home },
     { path: "/about", component: About },
@@ -147,16 +275,34 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+export default router;
 ```
 
--   Usage: `<router-link to="/">Home</router-link>`, `<router-view />`
+### Використання у додатку
+
+```js
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+
+createApp(App).use(router).mount("#app");
+```
 
 ---
 
-## 7. State Management (Pinia)
+## Стан додатку (Pinia)
+
+### Встановлення
+
+```bash
+npm install pinia
+```
+
+### Створення store
 
 ```js
 import { defineStore } from "pinia";
+
 export const useCounterStore = defineStore("counter", {
     state: () => ({ count: 0 }),
     actions: {
@@ -167,83 +313,319 @@ export const useCounterStore = defineStore("counter", {
 });
 ```
 
--   Replace Vuex in Vue 3.
+### Використання в компоненті
 
----
-
-## 8. Props, Emits, Slots
-
--   **Props:** Pass data from parent to child.
--   **Emits:** Trigger events from child to parent.
--   **Slots:** Distribute content from parent to child.
-
-```vue
-<MyButton :label="btnLabel" @click="handleClick">
-  <template #icon> <Icon /> </template>
-</MyButton>
+```js
+import { useCounterStore } from "@/stores/counter";
+const counter = useCounterStore();
+counter.increment();
 ```
 
 ---
 
-## 9. Teleport, Suspense, Fragment
+## Взаємодія з сервером (Fetch, Axios)
 
--   `<teleport to="body">`: Move content outside parent DOM.
--   `<Suspense>`: Async component loading.
--   Fragments: Multiple root nodes in template.
+### Fetch API
 
----
+```js
+async function getUsers() {
+    const res = await fetch("/api/users");
+    const data = await res.json();
+    return data;
+}
+```
 
-## 10. Typescript Support
+### Axios
 
--   Use `<script setup lang="ts">`
--   Full type inference for props, emits, refs.
-
----
-
-## 11. Testing & Tooling
-
--   Unit: [Vitest](https://vitest.dev/)
--   E2E: [Cypress](https://www.cypress.io/)
--   Linting: [eslint-plugin-vue](https://eslint.vuejs.org/)
--   Formatting: [Prettier](https://prettier.io/)
+```js
+import axios from "axios";
+const users = await axios.get("/api/users");
+```
 
 ---
 
-## 12. Ecosystem
+## Формування шаблонів та рендеринг
 
--   [Vue Router](https://router.vuejs.org/)
--   [Pinia](https://pinia.vuejs.org/)
--   [VueUse](https://vueuse.org/)
--   [Vite](https://vitejs.dev/) (recommended bundler)
--   [Vuetify, Element Plus, Quasar] (UI kits)
+-   **v-bind:** підв'язка атрибутів
+-   **v-on:** обробка подій
+-   **v-model:** двостороння прив'язка
+-   **v-if/v-else/v-show:** умовний рендеринг
+-   **v-for:** цикли
+
+#### Приклад
+
+```vue
+<template>
+    <input v-model="name" placeholder="Введіть ім’я" />
+    <button @click="greet">Привітати</button>
+    <p v-if="name">Вітаю, {{ name }}!</p>
+</template>
+
+<script setup>
+import { ref } from "vue";
+const name = ref("");
+function greet() {
+    alert(`Вітаю, ${name.value}!`);
+}
+</script>
+```
 
 ---
 
-## 13. Best Practices
+## Директиви (v-if, v-for, v-model, v-bind, v-on)
 
--   Use Composition API for scalable apps.
--   Use `scoped` styles in SFCs.
--   Use keys with `v-for`.
--   Avoid mutating props directly.
--   Prefer Pinia for state management.
--   Type everything with TypeScript.
+-   **v-if / v-else / v-else-if:** умовний рендеринг
+-   **v-for:** ітерування по масиву/об'єкту
+-   **v-model:** двосторонній data binding
+-   **v-bind:** підв’язка атрибутів
+-   **v-on:** обробка подій
+
+#### Приклад v-for
+
+```vue
+<template>
+    <ul>
+        <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+    </ul>
+</template>
+
+<script setup>
+const users = [
+    { id: 1, name: "Олег" },
+    { id: 2, name: "Олена" },
+];
+</script>
+```
 
 ---
 
-## 14. Resources
+## Компоненти та реюзабельність
+
+-   Розбивай UI на маленькі незалежні компоненти.
+-   Використовуй props, emits, slots для гнучкості.
+-   Пиши компоненти як функції (script setup) для реюзабельності.
+
+#### Приклад реюзабельного компоненту
+
+```vue
+<!-- Button.vue -->
+<template>
+    <button @click="onClick"><slot /></button>
+</template>
+<script setup>
+const emit = defineEmits(["click"]);
+function onClick() {
+    emit("click");
+}
+</script>
+```
+
+---
+
+## Слоти, Provide/Inject, Teleport
+
+### Слоти
+
+Дозволяють вставляти довільний контент у компонент.
+
+```vue
+<template>
+    <slot name="header"></slot>
+    <main><slot /></main>
+    <slot name="footer"></slot>
+</template>
+```
+
+### Provide/Inject
+
+Глобальний обмін станом між компонентами.
+
+```js
+// Parent
+import { provide } from "vue";
+provide("theme", "dark");
+
+// Child
+import { inject } from "vue";
+const theme = inject("theme");
+```
+
+### Teleport
+
+Рендеринг у довільне місце DOM.
+
+```vue
+<teleport to="body">
+  <div class="modal">Модалка</div>
+</teleport>
+```
+
+---
+
+## Composition API: поглиблений розбір
+
+-   **ref, reactive** — створення реактивних змінних і об'єктів.
+-   **computed** — реактивні вирази.
+-   **watch, watchEffect** — слідкування за змінами.
+-   **provide/inject** — глобальний state management.
+-   **custom composables** — функції для реюзабельної логіки.
+
+#### Приклад custom composable
+
+```js
+// useCounter.js
+import { ref } from "vue";
+export function useCounter() {
+    const count = ref(0);
+    function increment() {
+        count.value++;
+    }
+    return { count, increment };
+}
+```
+
+---
+
+## Внутрішні механізми: реактивність, virtual DOM, performance traps
+
+### Реактивність
+
+-   Vue 3 використовує Proxy для реактивності.
+-   Зміна стану автоматично оновлює всі залежні компоненти.
+
+#### Схема
+
+```
+Proxy(state) <--> Dependency tracking <--> Render Queue <--> Virtual DOM <--> Real DOM
+```
+
+### Virtual DOM
+
+-   Швидкий diff та patch для оновлення тільки потрібних частин DOM.
+
+### Performance traps
+
+-   **Великі компоненти** — розбивай на менші.
+-   **Непотрібні watch** — оптимізуй залежності.
+-   **Погана структура state** — уникай deeply nested reactive objects.
+
+#### Діаграма реактивності
+
+```
+state (Proxy/Ref) --[dependents]--> computed, watcher --[update]--> template
+```
+
+---
+
+## TypeScript у Vue 3
+
+-   Повна підтримка TypeScript.
+-   Композиційний API максимально TypeScript-friendly.
+
+#### Приклад типізації пропсів
+
+```vue
+<script setup lang="ts">
+defineProps<{ title: string; count?: number }>();
+</script>
+```
+
+#### Типізація emit
+
+```vue
+<script setup lang="ts">
+const emit = defineEmits<{
+    (e: "increment", value: number): void;
+}>();
+</script>
+```
+
+---
+
+## Тестування (Vitest, Cypress)
+
+### Vitest (unit-тести)
+
+```bash
+npm install -D vitest @testing-library/vue
+```
+
+#### Приклад тесту
+
+```js
+import { render, fireEvent } from "@testing-library/vue";
+import Counter from "./Counter.vue";
+
+test("лічильник інкрементується", async () => {
+    const { getByText } = render(Counter);
+    await fireEvent.click(getByText("Додати"));
+    getByText("Лічильник: 1");
+});
+```
+
+### Cypress (E2E-тести)
+
+```bash
+npm install -D cypress
+```
+
+#### Приклад тесту
+
+```js
+describe("Counter", () => {
+    it("лічильник працює", () => {
+        cy.visit("/");
+        cy.get("button").click();
+        cy.contains("Лічильник: 1");
+    });
+});
+```
+
+---
+
+## Безпека та типові пастки
+
+-   **Використовуйте v-html обережно** — ризик XSS-атак.
+-   **Не зберігайте sensitive data у реактивному state.**
+-   **Валідуйте дані на сервері!**
+-   **Уникайте глобальних змінних.**
+-   **Завжди використовуйте :key для v-for.**
+
+---
+
+## Best practices
+
+-   Використовуй Composition API, script setup, TypeScript.
+-   Розбивай UI на малі компоненти.
+-   Завжди додавай :key для v-for.
+-   Використовуй Pinia для глобального state.
+-   Валідуй дані з форм на сервері і клієнті.
+-   Тестуй компоненти (unit, E2E).
+-   Дотримуйся accessibility (aria-атрибути, семантика).
+-   Не використовуй v-html для неперевірених даних.
+-   Пиши документацію для composables та компонентів.
+-   Використовуй офіційний eslint-plugin-vue для лінтингу.
+
+---
+
+## Корисні ресурси та документація
 
 -   [Vue 3 Docs](https://vuejs.org/)
+-   [Pinia Docs](https://pinia.vuejs.org/)
+-   [Vue Router Docs](https://router.vuejs.org/)
+-   [Vitest Docs](https://vitest.dev/)
+-   [Testing Library Vue](https://testing-library.com/docs/vue-testing-library/intro/)
+-   [Cypress Docs](https://docs.cypress.io/)
+-   [VueUse (composables)](https://vueuse.org/)
+-   [Vue DevTools](https://devtools.vuejs.org/)
 -   [Awesome Vue](https://github.com/vuejs/awesome-vue)
--   [Vue Mastery](https://www.vuemastery.com/)
 
 ---
 
-## 15. Interoperability Table
+## Короткий підсумок
 
-| Feature     | Vue 3 | HTML | CSS/SCSS | JS/TS | Nuxt | Angular | Node/Express | Electron |
-| ----------- | ----- | ---- | -------- | ----- | ---- | ------- | ------------ | -------- |
-| Templates   | ✔️    | ✔️   | ✔️       | ✔️    | ✔️   | ✔️      |              | ✔️       |
-| State Mgmt  | ✔️    |      |          | ✔️    | ✔️   | ✔️      |              | ✔️       |
-| Routing     | ✔️    |      |          | ✔️    | ✔️   | ✔️      |              | ✔️       |
-| API Consume | ✔️    |      |          | ✔️    | ✔️   | ✔️      | ✔️           | ✔️       |
-| Desktop     | ✔️    |      |          | ✔️    |      |         |              | ✔️       |
+**Vue 3 — це сучасний, реактивний, TypeScript-дружній фреймворк для scalable front-end проектів.**  
+Гнучка компонентна архітектура, потужний Composition API, state management через Pinia, тестування через Vitest/Cypress — усе це дозволяє створювати швидкі, безпечні та професійні UI.  
+Дотримуйся best practices, валідуй код, тестуй і використовуй офіційну документацію для глибокого занурення!
+
+---

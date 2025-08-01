@@ -1,25 +1,31 @@
-# HTML (HyperText Markup Language) — сучасний конспект
+# CSS/SCSS: сучасний конспект 2024+
 
 ---
 
 ## Зміст
 
 -   [Вступ](#вступ)
--   [Основи HTML](#основи-html)
--   [Структура HTML-документа](#структура-html-документа)
--   [Семантичні теги](#семантичні-теги)
--   [Текстові елементи](#текстові-елементи)
--   [Списки](#списки)
--   [Посилання](#посилання)
--   [Зображення, відео, аудіо](#зображення-відео-аудіо)
--   [Форми](#форми)
--   [Таблиці](#таблиці)
--   [Мультимедіа та інтерактивність](#мультимедіа-та-інтерактивність)
--   [Атрибути](#атрибути)
--   [Валідація HTML](#валідація-html)
--   [Best Practices](#best-practices)
--   [Типові помилки та їх уникнення](#типові-помилки-та-їх-уникнення)
--   [FAQ](#faq)
+-   [Що таке CSS та SCSS](#що-таке-css-та-scss)
+-   [Історія та еволюція CSS](#історія-та-еволюція-css)
+-   [Базова структура CSS](#базова-структура-css)
+-   [Основні селектори](#основні-селектори)
+-   [Властивості та значення](#властивості-та-значення)
+-   [Box Model: Підкапотний розбір](#box-model-підкапотний-розбір)
+-   [Flexbox: сучасний layout](#flexbox-сучасний-layout)
+-   [Grid: потужна система розташування](#grid-потужна-система-розташування)
+-   [SCSS та SASS: синтаксис, розширення](#scss-та-sass-синтаксис-розширення)
+-   [Перемінні, вкладеність, міксіни, розширення](#перемінні-вкладеність-міксіни-розширення)
+-   [Responsive Design: адаптивність](#responsive-design-адаптивність)
+-   [Media Queries: контроль пристроїв](#media-queries-контроль-пристроїв)
+-   [Анімації та переходи](#анімації-та-переходи)
+-   [Custom Properties (CSS-змінні)](#custom-properties-css-змінні)
+-   [Псевдокласи та псевдоелементи](#псевдокласи-та-псевдоелементи)
+-   [Взаємодія з JavaScript](#взаємодія-з-javascript)
+-   [Accessibility в CSS](#accessibility-в-css)
+-   [Performance traps](#performance-traps)
+-   [Внутрішні механізми CSS: розбір рендерингу](#внутрішні-механізми-css-розбір-рендерингу)
+-   [Підводні камені та глибокі концепції](#підводні-камені-та-глибокі-концепції)
+-   [Best practices](#best-practices)
 -   [Корисні ресурси](#корисні-ресурси)
 -   [Короткий підсумок](#короткий-підсумок)
 
@@ -27,370 +33,616 @@
 
 ## Вступ
 
-**HTML (HyperText Markup Language)** — це стандартна мова розмітки для створення веб-сторінок і веб-додатків. HTML визначає структуру контенту на сторінці за допомогою елементів (tags). Сучасна версія — **HTML5** — значно розширила можливості мови, зробила її більш семантичною та інтерактивною.
+**CSS (Cascading Style Sheets)** — це мова стилів, що задає вигляд HTML-елементів на сторінці.  
+**SCSS (Sassy CSS)** — надбудова над CSS, яка дає змогу використовувати змінні, вкладеність, міксіни й інші сучасні можливості для організації коду.  
+У 2024 році CSS та SCSS — фундамент для гнучкого дизайну, адаптивності, анімацій, accessibility та швидкого масштабування front-end проектів.
 
 ---
 
-## Основи HTML
+## Що таке CSS та SCSS
 
-HTML складається з елементів (tags), що описують структуру і зміст сторінки. Кожен елемент має відкриваючий (`<tag>`) і закриваючий (`</tag>`) тег (виняток — самозакриваючі теги, як `<img />`).
+-   **CSS** — стандартна технологія W3C для опису стилів HTML-документів.
+-   **SCSS** — синтаксичне розширення CSS, частина препроцесора **Sass** (Syntactically Awesome Style Sheets).
 
-### Приклад базового HTML-документа
+### Порівняння
 
-```html
-<!DOCTYPE html>
-<html lang="uk">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Мій перший сайт</title>
-    </head>
-    <body>
-        <h1>Вітаю на моєму сайті!</h1>
-        <p>Це приклад сучасної розмітки HTML5.</p>
-    </body>
-</html>
+|             | CSS                         | SCSS                       |
+| ----------- | --------------------------- | -------------------------- |
+| Змінні      | Custom Properties (`--var`) | `$variable`                |
+| Вкладеність | Немає                       | Є                          |
+| Міксіни     | Немає                       | Є (`@mixin`)               |
+| Логіка      | Мінімальна                  | Є (`@if`, `@for`, `@each`) |
+| Імпорт      | `@import` (застаріло)       | `@use`, `@forward`         |
+
+---
+
+## Історія та еволюція CSS
+
+-   **CSS1 (1996):** базові стилі для HTML.
+-   **CSS2 (1998):** позиціонування, медіа-типи.
+-   **CSS3 (2011+):** модульність, анімації, flexbox, grid, custom properties.
+-   **2024+:** Wide gamut, container queries, advanced selectors, has(), layer, state-driven styling.
+
+---
+
+## Базова структура CSS
+
+```css
+/* Коментар українською: стиль для заголовка */
+h1 {
+    color: #2d2d2d;
+    font-size: 2rem;
+    margin-bottom: 1em;
+}
+```
+
+### Селектор → Властивість: Значення
+
+```css
+селектор {
+    властивість: значення;
+}
+```
+
+#### Приклад для SCSS
+
+```scss
+// Коментар українською: вкладеність та змінна
+$main-color: #0099ff;
+
+.header {
+    background: $main-color;
+    .logo {
+        width: 120px;
+    }
+}
 ```
 
 ---
 
-## Структура HTML-документа
+## Основні селектори
 
--   `<!DOCTYPE html>` — визначає документ як HTML5.
--   `<html lang="uk">` — кореневий елемент, атрибут `lang` задає мову.
--   `<head>` — містить метадані (charset, viewport, title тощо).
--   `<body>` — основний контент сторінки.
+| Селектор      | Опис                      | Приклад            |
+| ------------- | ------------------------- | ------------------ |
+| Елемент       | Всі елементи певного типу | `p {}`             |
+| Клас          | Всі елементи з класом     | `.menu {}`         |
+| ID            | Елемент з унікальним id   | `#header {}`       |
+| Комбінований  | Елементи всередині іншого | `.nav a {}`        |
+| Груповий      | Кілька селекторів разом   | `h1, h2 {}`        |
+| Псевдоклас    | Стан елемента             | `a:hover {}`       |
+| Псевдоелемент | Частина елемента          | `p::first-line {}` |
 
-### Схема структури
+#### Приклад комбінованих селекторів
 
-```plaintext
-<!DOCTYPE html>
-|_ <html>
-   |_ <head>
-   |_ <body>
+```css
+nav ul li a.active {
+    color: #ff6600;
+}
 ```
 
 ---
 
-## Семантичні теги
+## Властивості та значення
 
-HTML5 додав багато семантичних тегів для кращої організації і SEO:
+### Основні властивості
 
--   `<header>` — шапка сторінки чи секції.
--   `<nav>` — навігаційне меню.
--   `<main>` — основний контент.
--   `<section>` — розділ сторінки.
--   `<article>` — незалежний матеріал (стаття, пост).
--   `<aside>` — додатковий контент (сайдбар).
--   `<footer>` — підвал сторінки.
+-   **Колір:** `color`, `background-color`
+-   **Розміри:** `width`, `height`, `max-width`, `min-height`
+-   **Відступи:** `margin`, `padding`
+-   **Рамки:** `border`, `border-radius`
+-   **Шрифти:** `font-family`, `font-size`, `font-weight`, `line-height`
+-   **Вирівнювання:** `text-align`, `vertical-align`
+-   **Позиціонування:** `position`, `top`, `left`, `z-index`
+-   **Зображення:** `background-image`, `object-fit`
+-   **Тіні:** `box-shadow`, `text-shadow`
+-   **Opacity:** `opacity`, `visibility`
 
-### Приклад семантичної розмітки
+#### Приклад стилізації кнопки
 
-```html
-<body>
-    <header>
-        <h1>HTML5 Семантика</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#main">Головна</a></li>
-            <li><a href="#about">Про нас</a></li>
-        </ul>
-    </nav>
-    <main id="main">
-        <section>
-            <h2>Стаття</h2>
-            <article>
-                <h3>Огляд HTML5</h3>
-                <p>HTML5 — сучасний стандарт розмітки.</p>
-            </article>
-        </section>
-        <aside>
-            <p>Сайдбар з цікавими фактами.</p>
-        </aside>
-    </main>
-    <footer>
-        <p>&copy; 2025 Всі права захищені.</p>
-    </footer>
-</body>
+```css
+.button {
+    background: linear-gradient(90deg, #0099ff 0%, #66ffcc 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 0.75em 2em;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: background 0.3s;
+}
+.button:hover {
+    background: linear-gradient(90deg, #0066cc 0%, #33cc99 100%);
+}
 ```
 
 ---
 
-## Текстові елементи
+## Box Model: Підкапотний розбір
 
--   `<h1>` — `<h6>` — заголовки (від найважливішого до менш важливого).
--   `<p>` — абзац.
--   `<span>` — інлайн-елемент для групування тексту.
--   `<strong>` — виділення важливого тексту (семантичний, не лише жирний).
--   `<em>` — акцент (семантичний курсив).
--   `<br />` — розрив рядка.
+Box Model — фундаментальна концепція CSS.
 
-### Приклад
+```
++----------------------------+
+|      margin (зовнішній)    |
+|  +----------------------+  |
+|  |    border (рамка)    |  |
+|  |  +----------------+  |  |
+|  |  |  padding       |  |  |
+|  |  |+-------------+ |  |  |
+|  |  || content     | |  |  |
+|  |  |+-------------+ |  |  |
+|  |  +----------------+  |  |
+|  +----------------------+  |
++----------------------------+
+```
 
-```html
-<h2>Заголовок секції</h2>
-<p>Це <strong>важливий</strong> текст, а це <em>виділений</em> текст.</p>
-<span>Інлайн-елемент для стилізації</span>
+-   **content** — основний контент блоку
+-   **padding** — внутрішній відступ
+-   **border** — рамка навколо контенту
+-   **margin** — зовнішній відступ
+
+#### Приклад:
+
+```css
+.card {
+    width: 300px;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+    margin: 32px auto;
+    box-sizing: border-box; /* сучасний best practice */
+}
 ```
 
 ---
 
-## Списки
+## Flexbox: сучасний layout
 
--   **Нумерований** (ordered): `<ol>`
--   **Маркерований** (unordered): `<ul>`
--   **Описовий** (description): `<dl>`
+**Flexbox** — модуль для гнучкого розташування елементів.
 
-### Приклади
+### Основні властивості
 
-```html
-<ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-</ul>
+-   `display: flex`
+-   `flex-direction`
+-   `justify-content`
+-   `align-items`
+-   `flex-wrap`
+-   `flex-grow`, `flex-shrink`, `flex-basis`
 
-<ol>
-    <li>Підготувати контент</li>
-    <li>Створити розмітку</li>
-    <li>Перевірити валідність</li>
-</ol>
+#### Приклад горизонтального меню
 
-<dl>
-    <dt>HTML</dt>
-    <dd>Мова розмітки для структурування контенту.</dd>
-</dl>
+```css
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+.menu-item {
+    padding: 0.5em 1.5em;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.menu-item:hover {
+    background: #f2f2f2;
+}
+```
+
+#### Візуалізація
+
+```
++--------+--------+--------+--------+
+| Item 1 | Item 2 | Item 3 | Item 4 |
++--------+--------+--------+--------+
 ```
 
 ---
 
-## Посилання
+## Grid: потужна система розташування
 
--   `<a href="URL">...</a>` — основний тег для створення гіперпосилань.
+**CSS Grid** — двовимірна система layout.
 
-### Важливі атрибути:
+### Основні властивості
 
--   `href` — адреса
--   `target="_blank"` — відкриття у новій вкладці
--   `rel="noopener noreferrer"` — безпека для зовнішніх посилань
+-   `display: grid`
+-   `grid-template-columns`
+-   `grid-template-rows`
+-   `grid-gap` / `gap`
+-   `grid-column`, `grid-row`
+-   `grid-area`, `grid-template-areas`
 
-#### Приклад
+#### Приклад Grid Layout
 
-```html
-<a
-    href="https://developer.mozilla.org/"
-    target="_blank"
-    rel="noopener noreferrer"
->
-    Документація MDN Web Docs
-</a>
+```css
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 24px;
+}
+.grid-item {
+    background: #f8f8ff;
+    padding: 1.5em;
+    border-radius: 10px;
+}
+```
+
+#### Схема
+
+```
++-------------------------------+
+|  1fr |   2fr   |   1fr        |
++-------------------------------+
+| Item |  Item   |  Item        |
++-------------------------------+
 ```
 
 ---
 
-## Зображення, відео, аудіо
+## SCSS та SASS: синтаксис, розширення
 
--   `<img src="..." alt="...">` — зображення
--   `<video src="..." controls></video>` — відео
--   `<audio src="..." controls></audio>` — аудіо
+**Sass** — препроцесор для CSS.  
+**SCSS** — сучасний синтаксис Sass (майже як CSS).
 
-### Атрибути
+### Основні можливості SCSS
 
--   `alt` — опис для зображень (важливо для доступності!)
--   `controls` — показує елементи керування для медіа
+-   Змінні: `$color: #0099ff;`
+-   Вкладеність: вкладення селекторів
+-   Міксіни: `@mixin`
+-   Наслідування: `@extend`
+-   Логіка: `@if`, `@for`, `@each`
+-   Імпорт/forward: `@use`, `@forward`
 
-#### Приклад
+#### Приклад SCSS
 
-```html
-<img src="photo.jpg" alt="Фотографія природи" />
+```scss
+$primary: #0099ff;
+$radius: 8px;
 
-<video src="video.mp4" controls poster="preview.jpg">
-    Ваш браузер не підтримує відео.
-</video>
+@mixin button-style($bg) {
+    background: $bg;
+    border-radius: $radius;
+    color: #fff;
+    padding: 0.75em 2em;
+    transition: background 0.2s;
+}
 
-<audio src="audio.mp3" controls>Ваш браузер не підтримує аудіо.</audio>
+.button {
+    @include button-style($primary);
+    &:hover {
+        background: darken($primary, 10%);
+    }
+}
 ```
 
 ---
 
-## Форми
+## Перемінні, вкладеність, міксіни, розширення
 
-Форми дозволяють взаємодіяти з користувачем.
+### Змінні
 
--   `<form>` — контейнер для елементів форми
--   `<input>` — поля вводу
--   `<textarea>` — багаторядкове поле
--   `<select>` — випадаючий список
--   `<button>` — кнопка
-
-### Приклад сучасної форми
-
-```html
-<form action="/submit" method="POST" autocomplete="on">
-    <label for="name">Ім'я:</label>
-    <input type="text" id="name" name="name" required />
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required />
-
-    <label for="message">Повідомлення:</label>
-    <textarea id="message" name="message" rows="4"></textarea>
-
-    <button type="submit">Надіслати</button>
-</form>
+```scss
+$main-bg: #f3f7fb;
+$text-dark: #222;
 ```
 
-#### Сучасні типи input
+### Вкладеність
 
--   `type="email"`
--   `type="number"`
--   `type="date"`
--   `type="range"`
--   `type="file"`
+```scss
+.card {
+    background: $main-bg;
+    h2 {
+        color: $text-dark;
+    }
+    a {
+        color: $main-bg;
+        &:hover {
+            color: $text-dark;
+        }
+    }
+}
+```
 
----
+### Міксіни
 
-## Таблиці
+```scss
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header {
+    @include flex-center;
+}
+```
 
-Використовуються для структурованих даних, не для layout!
+### Наслідування
 
--   `<table>` — таблиця
--   `<tr>` — рядок
--   `<th>` — заголовок стовпця
--   `<td>` — комірка
-
-### Приклад
-
-```html
-<table>
-    <thead>
-        <tr>
-            <th>Ім'я</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Олексій</td>
-            <td>alex@email.com</td>
-        </tr>
-        <tr>
-            <td>Марія</td>
-            <td>maria@email.com</td>
-        </tr>
-    </tbody>
-</table>
+```scss
+%absolute-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal {
+    @extend %absolute-center;
+}
 ```
 
 ---
 
-## Мультимедіа та інтерактивність
+## Responsive Design: адаптивність
 
-HTML5 дозволяє легко додавати інтерактивні елементи:
+Адаптивний (responsive) дизайн — обов’язковий стандарт 2024+.
 
--   `<canvas>` — 2D/3D графіка (через JS)
--   `<svg>` — векторна графіка
--   `<details>` + `<summary>` — розкриваючі блоки
+-   Використання відносних одиниць (`rem`, `%`, `vw`, `vh`)
+-   Гнучкі layout-и (Flexbox, Grid)
+-   Адаптивні зображення (`srcset`)
+-   Відсутність фіксованих розмірів
 
-### Приклад
+#### Приклад адаптації:
 
-```html
-<details>
-    <summary>Показати додаткову інформацію</summary>
-    <p>Тут прихований контент!</p>
-</details>
-
-<canvas id="demo" width="200" height="100"></canvas>
+```css
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2vw;
+}
+@media (max-width: 700px) {
+    .container {
+        padding: 0 1vw;
+    }
+    .menu {
+        flex-direction: column;
+    }
+}
 ```
 
 ---
 
-## Атрибути
+## Media Queries: контроль пристроїв
 
-Атрибути — додаткові дані для елементів:
+**Media queries** — ключ до адаптивності.
 
--   Глобальні: `id`, `class`, `style`, `title`, `data-*`
--   Для доступності: `aria-*`, `role`
+```css
+@media (max-width: 600px) {
+    body {
+        font-size: 1rem;
+    }
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (orientation: landscape) {
+    .hero {
+        height: 60vh;
+    }
+}
+```
 
-#### Приклад з data-атрибутом
+#### Актуальні фічі 2024+:
 
-```html
-<div data-user-id="123" class="card">Картка користувача</div>
+-   container queries (`@container`)
+-   prefers-color-scheme (темна/світла тема)
+-   pointer, hover, resolution
+
+---
+
+## Анімації та переходи
+
+CSS дозволяє створювати smooth transitions та keyframe animations.
+
+### Transition
+
+```css
+.button {
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.button:hover {
+    background: #0055aa;
+    box-shadow: 0 4px 24px #0055aa33;
+}
+```
+
+### Keyframes
+
+```css
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.modal {
+    animation: fade-in 0.6s ease-in;
+}
 ```
 
 ---
 
-## Валідація HTML
+## Custom Properties (CSS-змінні)
 
-Валідація — перевірка коректності розмітки.
+**CSS Custom Properties** (змінні) — стандарт 2024+.
 
--   Використовуйте [W3C Validator](https://validator.w3.org/)
--   Помилки: не закриті теги, відсутні атрибути, дублікати id
+```css
+:root {
+    --main-bg: #f7fafc;
+    --accent: #0099ff;
+}
+.header {
+    background: var(--main-bg);
+    color: var(--accent);
+}
+.button {
+    background: var(--accent);
+}
+```
 
----
-
-## Best Practices
-
--   Використовуйте **семантичні теги** для структури.
--   Додавайте **alt-атрибути** для всіх зображень.
--   Використовуйте **доступні атрибути** (`aria-*`), особливо для інтерактивних елементів.
--   Уникайте використання таблиць для layout.
--   Не перевантажуйте сторінку зайвими тегами.
--   Валідуйте HTML перед публікацією.
--   Використовуйте сучасний синтаксис (HTML5).
--   Організовуйте код з відступами та коментарями.
-
----
-
-## Типові помилки та їх уникнення
-
-| Помилка                             | Як уникнути                                       |
-| ----------------------------------- | ------------------------------------------------- |
-| Відсутній alt у <img>               | Завжди додавайте опис                             |
-| Дублікати id                        | Використовуйте унікальні id                       |
-| Використання <b> замість <strong>   | Віддавайте перевагу семантичним тегам             |
-| Таблиці для layout                  | Використовуйте CSS Grid/Flexbox                   |
-| Відсутня мова в <html lang="...">   | Вказуйте lang для SEO і доступності               |
-| Не закриті теги                     | Перевіряйте розмітку, використовуйте автозакриття |
-| Старі атрибути (наприклад, bgcolor) | Застосовуйте CSS для стилів                       |
+-   Можна змінювати значення змінних через JS, адаптувати тему
 
 ---
 
-## FAQ
+## Псевдокласи та псевдоелементи
 
-**Q: Чим відрізняється HTML5 від попередніх версій?**  
-A: Семантичні теги, вбудовані відео/аудіо, гнучкі форми, інтерактивність, API (Canvas, Geolocation тощо).
+### Псевдокласи
 
-**Q: Який тег для основного контенту сторінки?**  
-A: `<main>`
+-   `:hover`, `:active`, `:focus`
+-   `:nth-child(n)`, `:first-child`, `:last-child`
+-   `:not()`, `:disabled`, `:checked`
 
-**Q: Як зробити сайт доступним для людей з інвалідністю?**  
-A: Використовуйте семантику, aria-атрибути, alt-опис для зображень, правильну структуру.
+### Псевдоелементи
 
-**Q: Чи можна стилізувати елементи HTML?**  
-A: Так, через CSS (Cascading Style Sheets).
+-   `::before`, `::after`
+-   `::first-line`, `::placeholder`
 
-**Q: Як уникнути дублювання id?**  
-A: Ведіть облік, використовуйте унікальні значення для кожного елемента.
+#### Приклад:
+
+```css
+.input:focus {
+    outline: 2px solid #0099ff;
+}
+.button::after {
+    content: " →";
+}
+```
+
+---
+
+## Взаємодія з JavaScript
+
+CSS може змінюватись програмно через JS.
+
+```js
+// Зміна теми через змінні CSS
+document.documentElement.style.setProperty("--accent", "#ff6600");
+
+// Додавання класу для анімації
+element.classList.add("is-active");
+```
+
+---
+
+## Accessibility в CSS
+
+-   Високий контраст для тексту й інтерфейсу
+-   Видимий фокус (`:focus`)
+-   Не приховуй елементи, якщо вони мають бути доступні з клавіатури
+-   Використання `@media (prefers-reduced-motion)` для користувачів з обмеженнями
+
+```css
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+```
+
+---
+
+## Performance traps
+
+### Типові пастки:
+
+-   Великі CSS-файли без оптимізації
+-   Застарілі селектори з великою специфічністю
+-   Зловживання `:nth-child` на великих DOM-деревах
+-   Inline-стилі замість класів
+-   CSS, що блокує рендеринг (`@import` у CSS, не у SCSS!)
+
+---
+
+## Внутрішні механізми CSS: розбір рендерингу
+
+### Як браузер обробляє CSS
+
+1. **Парсинг** — браузер створює CSSOM (CSS Object Model)
+2. **Об’єднання DOM + CSSOM** → Render Tree
+3. **Layout** — визначення розміру та положення елементів
+4. **Paint** — промальовування стилів
+5. **Composite** — складання шарів у кінцеве зображення
+
+#### Схема
+
+```
+HTML → DOM
+CSS  → CSSOM
+DOM + CSSOM → Render Tree → Layout → Paint → Composite
+```
+
+### Performance traps
+
+-   Reflow (зміна layout) — важко для браузера
+-   Repaint (зміна стилів) — легше, але часто
+-   Слідкуй за кількістю шарів та анімацій
+
+---
+
+## Підводні камені та глибокі концепції
+
+### Специфічність
+
+-   Inline-стилі > ID > клас > тег
+-   !important — найвища специфічність, уникай!
+
+### Наслідування
+
+-   Не всі властивості наслідуються автоматично
+-   Наслідування залежить від типу властивості (наприклад, `color` наслідується, `margin` — ні)
+
+### Глобальні стилі vs модульні
+
+-   Використовуй CSS-модулі, SCSS-локалізацію, BEM, або сучасні інструменти (CSS-in-JS)
+
+### Container queries
+
+```css
+@container (min-width: 500px) {
+    .card {
+        font-size: 1.5rem;
+    }
+}
+```
+
+---
+
+## Best practices
+
+-   Використовуй SCSS/Custom Properties для змінних та тем
+-   Групуй стилі за компонентами, а не за сторінками
+-   Не перевантажуй селектори (уникай надмірної специфічності)
+-   Розділяй лейаути з використанням flexbox/grid
+-   Завжди тестуй адаптивність на різних пристроях
+-   Валідуй CSS ([CSS Validator](https://jigsaw.w3.org/css-validator/))
+-   Використовуй сучасні препроцесори (SCSS, PostCSS)
+-   Підключай CSS-файли асинхронно (`rel="preload"`)
+-   Мінімізуй та оптимізуй CSS перед релізом
 
 ---
 
 ## Корисні ресурси
 
--   [Офіційна документація HTML на MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML)
--   [W3Schools HTML Tutorial](https://www.w3schools.com/html/)
--   [HTML Living Standard](https://html.spec.whatwg.org/)
--   [WebAIM — Доступність HTML](https://webaim.org/techniques/html/)
--   [W3C Markup Validation Service](https://validator.w3.org/)
--   [CSS Tricks — Семантична розмітка](https://css-tricks.com/semantic-html5-elements/)
+-   [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS)
+-   [Sass Official Guide](https://sass-lang.com/guide)
+-   [CSS Tricks](https://css-tricks.com/)
+-   [Web.dev CSS](https://web.dev/css/)
+-   [Smashing Magazine CSS](https://www.smashingmagazine.com/category/css/)
+-   [Can I Use](https://caniuse.com/)
+-   [CSS Grid Guide](https://cssgrid.io/)
+-   [Flexbox Froggy](https://flexboxfroggy.com/)
+-   [CSS Validator](https://jigsaw.w3.org/css-validator/)
+-   [Accessibility Cheatsheet](https://webaim.org/resources/contrastchecker/)
+-   [Container Queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries)
 
 ---
 
 ## Короткий підсумок
 
-HTML — це основа будь-якої веб-сторінки. Важливо писати чисту, валідну і семантичну розмітку, використовувати сучасні елементи HTML5, піклуватися про доступність та організацію контенту. Обирайте найкращі практики і не забувайте про валідацію перед публікацією. Семантика, доступність і сучасний підхід — ключ до якісного вебу!
+**CSS/SCSS — це потужний інструмент для створення сучасних, адаптивних, швидких та доступних інтерфейсів.**  
+Глибоке розуміння Box Model, Flexbox, Grid, специфічності, рендерингу та accessibility дозволяє створювати професійний код, що легко підтримується і масштабуються.  
+Дотримуйся best practices, регулярно оновлюй знання, тестуй на реальних пристроях і використовуй сучасні можливості CSS (2024+).  
+Для поглибленого вивчення — обирай офіційні ресурси та експериментуй із сучасними інструментами!
 
 ---
-
-<!-- Якщо потрібні додаткові теми (наприклад, глибше про Canvas, SVG, інтеграцію з JS, accessibility), просто напиши наступну тему! -->
