@@ -261,7 +261,7 @@ header.textContent = "Новий заголовок";
 
 #### Візуалізація структури DOM
 
-![DOM parsing diagram](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/DOM_parsing_diagram.png)
+![DOM parsing diagram](https://www.guvi.in/blog/wp-content/uploads/2024/07/5-2048x1072.png)
 
 ---
 
