@@ -1,199 +1,137 @@
-# Розширена шпаргалка по JavaScript
+# Ultimate JavaScript Cheat Sheet
 
-## ЗМІСТ
+## ⭐ Description
 
-1. [Основи синтаксису](#основи-синтаксису)
-2. [Типи даних](#типи-даних)
-3. [Оператори](#оператори)
-4. [Функції](#функції)
-5. [Управління потоком](#управління-потоком)
-6. [Цикли](#цикли)
-7. [Масиви](#масиви)
-8. [Об'єкти](#обєкти)
-9. [Класи та ООП](#класи-та-ооп)
-10. [Модулі](#модулі)
-11. [Робота з DOM](#робота-з-dom)
-12. [Події](#події)
-13. [Асинхронність (Promise, async/await)](#асинхронність-promise-asyncawait)
-14. [Робота з JSON](#робота-з-json)
-15. [Робота з LocalStorage](#робота-з-localstorage)
-16. [Регулярні вирази](#регулярні-вирази)
-17. [Корисні методи String та Number](#корисні-методи-string-та-number)
-18. [Деструктуризація](#деструктуризація)
-19. [Spread/Rest оператори](#spreadrest-оператори)
-20. [Set, Map](#set-map)
-21. [Error Handling](#error-handling)
-22. [Корисні поради](#корисні-поради)
+JavaScript (JS) is a versatile, interpreted language for web, server, and desktop development. It enables interactivity, logic, and data manipulation in browsers and powers backends via Node.js. It's the basis for frameworks like Vue, Angular, and Electron.
+
+## ⭐ Relationship With Other Technologies
+
+-   HTML: JS manipulates HTML structure via the DOM.
+-   CSS/SCSS: JS can change CSS styles dynamically.
+-   TypeScript: TS is JS with types.
+-   Vue/Angular/Nuxt/Electron: JS is used for logic, components, and interactivity.
+-   Node/Express: JS is used for server-side programming.
+-   Django/Python: Python is used server-side, but JS runs in browsers.
+-   Electron: JS powers desktop app logic.
 
 ---
 
-## Основи синтаксису
+## 1. Variables & Data Types
 
 ```js
-// Коментар
-let x = 5; // змінна
-const y = 10; // константа
-var z = 15; // старий спосіб
+let x = 5; // Block-scoped
+const y = 10; // Constant
+var z = "test"; // Function-scoped, legacy
 
-// шаблонні рядки
-let name = "Іван";
-console.log(`Привіт, ${name}!`);
+// Data types
+let num = 42; // Number
+let str = "Hello"; // String
+let bool = true; // Boolean
+let arr = [1, 2, 3]; // Array
+let obj = { name: "John" }; // Object
+let nul = null; // Null
+let und = undefined; // Undefined
+let sym = Symbol("desc"); // Symbol
+let big = 123n; // BigInt
 ```
 
 ---
 
-## Типи даних
+## 2. Operators
 
--   Number: 10, 3.14, NaN, Infinity
--   String: "hello", 'world', `string`
--   Boolean: true, false
--   Null: null
--   Undefined: undefined
--   Object: { a: 1 }
--   Array: [1, 2, 3]
--   Symbol: Symbol("id")
--   BigInt: 12345678901234567890n
+-   Arithmetic: `+`, `-`, `*`, `/`, `%`, `**`
+-   Assignment: `=`, `+=`, `-=`, `*=`, `/=`
+-   Comparison: `==`, `===`, `!=`, `!==`, `<`, `>`, `<=`, `>=`
+-   Logical: `&&`, `||`, `!`
+-   Ternary: `condition ? expr1 : expr2`
+-   Spread: `[...arr]`
+-   Rest: `function(...args) {}`
+
+---
+
+## 3. Functions
 
 ```js
-typeof 42; // "number"
-typeof "hello"; // "string"
-typeof true; // "boolean"
-typeof undefined; // "undefined"
-typeof null; // "object"
+function add(a, b) {
+    return a + b;
+}
+const sub = (a, b) => a - b;
+const sum = function (a, b) {
+    return a + b;
+};
+(function () {
+    /* IIFE */
+})();
 ```
 
 ---
 
-## Оператори
-
--   Арифметичні: +, -, \*, /, %, \*\*
--   Порівняння: ==, ===, !=, !==, >, <, >=, <=
--   Логічні: &&, ||, !
--   Присвоєння: =, +=, -=, \*=, /=, %=
--   Тернарний: `умова ? значення1 : значення2`
--   Інкремент/декремент: x++, x--
-
----
-
-## Функції
+## 4. Control Flow
 
 ```js
-function greet(name) {
-    return `Привіт, ${name}!`;
-}
+if (x > 10) { ... }
+else if (x > 5) { ... }
+else { ... }
 
-const sum = (a, b) => a + b; // стрілочна функція
+for (let i = 0; i < 10; i++) { ... }
+while (condition) { ... }
+do { ... } while (condition);
 
-// Значення за замовчуванням
-function pow(x = 2, y = 3) {
-    return x ** y;
-}
-
-// Анонімна функція
-setTimeout(function () {
-    console.log("Hi");
-}, 1000);
-```
-
----
-
-## Управління потоком
-
-```js
-if (x > 10) {
-    // ...
-} else if (x > 5) {
-    // ...
-} else {
-    // ...
-}
-
-switch (color) {
-    case "red":
-        break;
-    case "blue":
-        break;
-    default:
-        break;
+switch (value) {
+  case 1: ...; break;
+  default: ...;
 }
 ```
 
 ---
 
-## Цикли
+## 5. Arrays & Objects
 
-```js
-for (let i = 0; i < 10; i++) {
-    /* ... */
-}
-
-while (cond) {
-    /* ... */
-}
-
-do {
-    /* ... */
-} while (cond);
-
-for (const item of arr) {
-    /* ... */
-}
-for (const key in obj) {
-    /* ... */
-}
-
-arr.forEach((val, idx) => {
-    /* ... */
-});
-arr.map((x) => x * 2);
-arr.filter((x) => x > 2);
-```
-
----
-
-## Масиви
+### Arrays
 
 ```js
 let arr = [1, 2, 3];
-arr.length; // довжина
-arr.push(4); // додати в кінець
-arr.pop(); // видалити з кінця
-arr.shift(); // видалити з початку
-arr.unshift(0); // додати на початок
-
-arr.slice(1, 3); // новий масив
-arr.splice(2, 1, 10); // змінює масив
-arr.indexOf(2); // індекс
-arr.includes(3); // true/false
-
-arr.reverse(); // перевертає
-arr.sort((a, b) => a - b); // сортує
-
-[...arr]; // копія
+arr.push(4);
+arr.pop();
+arr.shift();
+arr.unshift(0);
+arr.map((x) => x * 2);
+arr.filter((x) => x > 2);
+arr.reduce((a, b) => a + b, 0);
+arr.slice(1, 3);
+arr.splice(1, 1);
+arr.find((x) => x === 2);
 ```
 
----
-
-## Об'єкти
+### Objects
 
 ```js
-let user = { name: "Anna", age: 25 };
-user.name;
-user["age"];
-
-user.city = "Kyiv";
-delete user.age;
-
-Object.keys(user); // ["name", "city"]
-Object.values(user); // ["Anna", "Kyiv"]
-Object.entries(user); // [["name", "Anna"], ["city", "Kyiv"]]
-
-let clone = { ...user }; // копія
+let obj = { name: "John", age: 30 };
+obj.name;
+obj["age"];
+Object.keys(obj);
+Object.values(obj);
+Object.entries(obj);
+Object.assign({}, obj, { age: 31 });
 ```
 
 ---
 
-## Класи та ООП
+## 6. ES6+ Features
+
+-   Arrow Functions: `(x) => x * x`
+-   Template Literals: `` `Hello ${name}` ``
+-   Destructuring: `const {a, b} = obj;`
+-   Spread/Rest: `[...arr]`, `function(...args)`
+-   Default Parameters: `function(x = 1) {}`
+-   Classes: `class MyClass { ... }`
+-   Modules: `import`, `export`
+-   Optional Chaining: `obj?.prop?.subprop`
+-   Nullish Coalescing: `x ?? 'default'`
+
+---
+
+## 7. Classes & OOP
 
 ```js
 class Animal {
@@ -201,259 +139,162 @@ class Animal {
         this.name = name;
     }
     speak() {
-        console.log(`${this.name} говорить`);
+        console.log(`${this.name} speaks.`);
     }
 }
-
 class Dog extends Animal {
     speak() {
-        super.speak();
-        console.log("Гав!");
+        console.log(`${this.name} barks.`);
     }
 }
-
-let d = new Dog("Барон");
-d.speak();
+let dog = new Dog("Rex");
+dog.speak();
 ```
 
 ---
 
-## Модулі
-
-```js
-// file.js
-export const x = 10;
-export default function hello() {}
-
-// main.js
-import { x } from "./file.js";
-import hello from "./file.js";
-```
-
----
-
-## Робота з DOM
+## 8. DOM Manipulation
 
 ```js
 document.getElementById("id");
 document.querySelector(".class");
-document.querySelectorAll("div");
-
-element.textContent = "Текст";
-element.innerHTML = "<b>HTML</b>";
-element.value = "input value";
-
-element.style.background = "yellow";
+element.innerHTML = "New Content";
+element.style.color = "blue";
 element.classList.add("active");
-element.classList.remove("active");
-
-element.setAttribute("data-x", "123");
-element.getAttribute("data-x");
-element.removeAttribute("data-x");
+element.setAttribute("data-id", "123");
+element.remove();
 ```
 
 ---
 
-## Події
+## 9. Events
 
 ```js
-element.addEventListener("click", function (e) {
-    console.log("Клік");
-});
-
-function handler(e) {
-    e.preventDefault();
-    e.stopPropagation();
-}
-
-element.removeEventListener("click", handler);
+button.addEventListener('click', (e) => { ... });
+document.addEventListener('DOMContentLoaded', () => { ... });
 ```
 
 ---
 
-## Асинхронність (Promise, async/await)
-
-### setTimeout / setInterval
+## 10. Async / Await & Promises
 
 ```js
-setTimeout(() => {
-    /* ... */
-}, 1000);
-setInterval(() => {
-    /* ... */
-}, 1000);
-clearTimeout(timer);
-clearInterval(interval);
-```
+const p = new Promise((resolve, reject) => { ... });
+p.then(result => { ... }).catch(err => { ... });
 
-### Promise
-
-```js
-let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("OK"), 1000);
-});
-
-promise.then((res) => console.log(res)).catch((err) => console.error(err));
-```
-
-### async/await
-
-```js
-async function getData() {
-    try {
-        let res = await fetch(url);
-        let data = await res.json();
-        return data;
-    } catch (err) {
-        console.error(err);
-    }
+async function fetchData() {
+  const res = await fetch('/api');
+  const data = await res.json();
+  return data;
 }
 ```
 
 ---
 
-## Робота з JSON
+## 11. Error Handling
 
 ```js
-let obj = { a: 1, b: 2 };
-let json = JSON.stringify(obj);
-let obj2 = JSON.parse(json);
+try {
+    throw new Error("Oops");
+} catch (e) {
+    console.error(e.message);
+} finally {
+    // Always runs
+}
 ```
 
 ---
 
-## Робота з LocalStorage
+## 12. Regular Expressions
+
+```js
+const re = /\d+/g;
+"abc123".match(re);
+```
+
+---
+
+## 13. Local Storage, Session Storage & Cookies
 
 ```js
 localStorage.setItem("key", "value");
 localStorage.getItem("key");
-localStorage.removeItem("key");
-localStorage.clear();
+sessionStorage.setItem("key", "value");
+document.cookie = "user=John; expires=Thu, 18 Dec 2025 12:00:00 UTC";
 ```
 
 ---
 
-## Регулярні вирази
+## 14. Fetch API & AJAX
 
 ```js
-let str = "hello123";
-let re = /\d+/;
-re.test(str); // true
-str.match(re); // ["123"]
-str.replace(/\d+/, "!");
+fetch("https://api.example.com/data")
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+
+const xhr = new XMLHttpRequest();
+xhr.open("GET", "/api");
+xhr.onload = () => {
+    console.log(xhr.responseText);
+};
+xhr.send();
 ```
 
 ---
 
-## Корисні методи String та Number
+## 15. Modules
 
 ```js
-let str = "  Hello, JS!  ";
-str.length;
-str.toUpperCase();
-str.toLowerCase();
-str.trim();
-str.startsWith("Hello");
-str.endsWith("JS!");
-str.includes("JS");
-str.replace("JS", "World");
-str.split(",");
-str.repeat(2);
-
-let n = 5.67;
-Math.round(n); // 6
-Math.floor(n); // 5
-Math.ceil(n); // 6
-Math.abs(-42); // 42
-Math.max(1, 2, 3); // 3
-Math.min(1, 2, 3); // 1
-Math.random(); // 0..1
-parseInt("42px"); // 42
-parseFloat("3.14m"); // 3.14
-```
-
----
-
-## Деструктуризація
-
-```js
-let arr = [1, 2, 3];
-let [a, b, c] = arr;
-
-let obj = { name: "Anna", age: 22 };
-let { name, age } = obj;
-
-// Вкладена деструктуризація
-let {
-    address: { city },
-} = { address: { city: "Lviv" } };
-```
-
----
-
-## Spread/Rest оператори
-
-```js
-let arr = [1, 2, 3];
-let arr2 = [...arr, 4, 5];
-
-function sum(...nums) {
-    return nums.reduce((a, b) => a + b);
+// file: math.js
+export function add(a, b) {
+    return a + b;
+}
+export default function sub(a, b) {
+    return a - b;
 }
 
-let obj1 = { a: 1, b: 2 };
-let obj2 = { ...obj1, c: 3 };
+// file: main.js
+import { add } from "./math.js";
+import sub from "./math.js";
 ```
 
 ---
 
-## Set, Map
+## 16. Advanced Patterns
 
-```js
-let set = new Set([1, 2, 2, 3]);
-set.add(4);
-set.has(2);
-set.delete(1);
-
-let map = new Map();
-map.set("a", 1);
-map.get("a");
-map.delete("a");
-for (let [key, val] of map) {
-    /* ... */
-}
-```
+-   **Debounce/Throttle:** Control event firing rate.
+-   **Currying:** `const curried = a => b => c => a + b + c;`
+-   **Memoization:** Cache function results.
 
 ---
 
-## Error Handling
+## 17. Best Practices
 
-```js
-try {
-    throw new Error("Помилка!");
-} catch (e) {
-    console.error(e.message);
-} finally {
-    console.log("Завжди виконується");
-}
-```
+-   Use `let`/`const`, avoid `var`.
+-   Modularize code using functions/classes/modules.
+-   Always handle errors.
+-   Use strict mode: `'use strict';`
+-   Use linters (ESLint) and formatters (Prettier).
+-   Prefer functional programming for clarity.
+-   Avoid polluting global scope.
 
 ---
 
-## Корисні поради
+## 18. Tools & Resources
 
--   Копія масиву: `[...arr]`
--   Копія об'єкта: `{...obj}`
--   Перевірка на undefined: `if (typeof x !== "undefined")`
--   Перевірка на NaN: `isNaN(value)`
--   Перевірка масиву: `Array.isArray(arr)`
--   Перевірка об'єкта: `typeof obj === "object" && !Array.isArray(obj)`
--   Перевірка числа: `typeof n === "number" && !isNaN(n)`
+-   [MDN JS Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+-   [ESLint](https://eslint.org/)
+-   [Prettier](https://prettier.io/)
+-   [Node.js](https://nodejs.org/)
+-   [JSFiddle](https://jsfiddle.net/)
+-   [Can I use](https://caniuse.com/)
 
 ---
 
-## Корисні ресурси
+## 19. Interoperability Table
 
--   [MDN Web Docs](https://developer.mozilla.org/uk/docs/Web/JavaScript)
--   [JavaScript.info](https://uk.javascript.info/)
--   [w3schools JS](https://www.w3schools.com/js/)
+| Feature           | JS  | HTML | CSS/SCSS | TS  | Vue/Angular/Nuxt | Node/Express | Django/Python | Electron |
+| ----------------- | --- | ---- | -------- | --- | ---------------- | ------------ | ------------- | -------- |
+| Logic/Behavior    | ✔️  |      |          | ✔️  | ✔️               | ✔️           |               | ✔️       |
+| DOM Manipulation  | ✔️  | ✔️   | ✔️       | ✔️  | ✔️               |              |               | ✔️       |
+| Desktop App Logic | ✔️  | ✔️   | ✔️       | ✔️  |                  |              |               | ✔️       |

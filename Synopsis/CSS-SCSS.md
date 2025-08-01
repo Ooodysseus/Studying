@@ -1,454 +1,347 @@
-# CSS / SCSS: Від основ до advanced (повний конспект)
+# Ultimate CSS & SCSS Cheat Sheet
+
+## ⭐ Description
+
+CSS (Cascading Style Sheets) is used to style and layout web pages. SCSS (Sassy CSS) extends CSS with variables, nesting, mixins, and logic.
+
+## ⭐ Relationship With Other Technologies
+
+-   HTML: CSS/SCSS styles HTML elements.
+-   JS/TS: JS/TS can manipulate styles dynamically.
+-   Vue/Angular/Nuxt/Electron: Use CSS/SCSS for component styling, support scoped styles.
+-   Node/Express, Django: Serve CSS files for client-side styling.
 
 ---
 
-## Зміст
+## 1. Selectors
 
-1. [Вступ: Що таке CSS/SCSS і для чого вони потрібні](#вступ)
-2. [Базові поняття: стилі, правила, селектори, пріоритетність](#базові-поняття)
-3. [Підключення CSS: зовнішній, внутрішній, інлайн](#підключення-css)
-4. [Синтаксис та структура CSS](#синтаксис-та-структура-css)
-5. [Селектори: види, комбінатори, специфічність](#селектори)
-6. [Базові властивості: кольори, фони, шрифти, відступи, розміри, межі](#базові-властивості)
-7. [Боксова модель, box-sizing, overflow](#боксова-модель)
-8. [Позиціонування: static, relative, absolute, fixed, sticky; z-index](#позиціонування)
-9. [Розмітка: display, float, clear, visibility, opacity, outline](#розмітка)
-10. [Flexbox: синтаксис, властивості, приклади](#flexbox)
-11. [Grid: синтаксис, властивості, приклади](#grid)
-12. [Псевдокласи, псевдоелементи, advanced-селектори](#псевдокласи)
-13. [Транзиції, анімації, keyframes](#анімації)
-14. [Медіа-запити, адаптивність, responsive design](#медіа-запити)
-15. [Змінні, функції, calc(), custom properties](#змінні-функції)
-16. [SCSS: основи, вкладеність, змінні, міксіни, extend, функції, оператори, цикли](#scss)
-17. [Advanced: кастомні властивості, clamp/fit-content/min/max, CSS Houdini, CSS-in-JS, ізоляція стилів, performance](#advanced)
-18. [Типові помилки, антипатерни, best practices](#типові-помилки)
-19. [Практичні поради, методології (BEM, SMACSS, OOCSS)](#практичні-поради)
-20. [Корисні ресурси](#корисні-ресурси)
+-   Universal: `*`
+-   Type: `div`, `p`, `h1`
+-   Class: `.my-class`
+-   ID: `#my-id`
+-   Attribute: `[type="text"]`
+-   Child: `ul > li`
+-   Descendant: `div p`
+-   Sibling: `h2 + p`
+-   Grouping: `h1, h2, h3`
+-   Pseudo-class: `a:hover`, `input:focus`, `li:first-child`
+-   Pseudo-element: `p::before`, `p::after`, `input::placeholder`
 
 ---
 
-## 1. Вступ: Що таке CSS/SCSS і для чого вони потрібні <a name="вступ"></a>
+## 2. Properties
 
--   **CSS (Cascading Style Sheets)** — мова для оформлення зовнішнього вигляду HTML-документу.
--   **SCSS/SASS** — надбудова над CSS (препроцесор): дає змінні, вкладеність, міксіни, функції, цикли.
--   CSS описує кольори, шрифти, розміри, положення, анімації, переходи, адаптивність.
--   SCSS використовується для великих проектів, де важлива підтримуваність і DRY-код.
-
----
-
-## 2. Базові поняття: стилі, правила, селектори, пріоритетність <a name="базові-поняття"></a>
-
--   **Правило**: селектор + блок властивостей.
--   **Селектор**: визначає, до яких елементів застосовувати стиль.
--   **Властивість**: наприклад, color, font-size, margin.
--   **Значення**: наприклад, red, 16px, auto.
--   **Каскадність** — чим “ближчий” стиль, тим вищий пріоритет.
--   **Специфічність**: inline style > id > class > тег. `!important` перебиває все (але зловживати не варто).
-
----
-
-## 3. Підключення CSS: зовнішній, внутрішній, інлайн <a name="підключення-css"></a>
-
--   **Зовнішній**:
-    ```html
-    <link rel="stylesheet" href="styles.css" />
-    ```
--   **Внутрішній**:
-    ```html
-    <style>
-        body {
-            color: navy;
-        }
-    </style>
-    ```
--   **Інлайн**:
-    ```html
-    <div style="background: yellow;">Текст</div>
-    ```
-
----
-
-## 4. Синтаксис та структура CSS <a name="синтаксис-та-структура-css"></a>
+### Typography
 
 ```css
-селектор {
-    властивість: значення;
-    інша-властивість: інше-значення;
-}
+font-family: "Roboto", sans-serif;
+font-size: 16px;
+font-weight: 700;
+line-height: 1.5;
+letter-spacing: 0.1em;
+text-align: center;
+text-transform: uppercase;
+text-decoration: underline;
+text-shadow: 2px 2px #888;
 ```
 
-**Приклад:**
+### Colors & Backgrounds
 
 ```css
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
+color: #333;
+background-color: #fafafa;
+background-image: url("bg.jpg");
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+opacity: 0.7;
 ```
 
----
-
-## 5. Селектори: види, комбінатори, специфічність <a name="селектори"></a>
-
--   **Тег**: `p {}`
--   **Клас**: `.menu {}`
--   **Id**: `#header {}`
--   **Атрибут**: `input[type="text"] {}`
--   **Комбінатори**:
-    -   “>” — прямий нащадок: `ul > li`
-    -   “ ” — нащадок будь-якого рівня: `nav a`
-    -   “+” — сусідній елемент: `h2 + p`
-    -   “~” — всі наступні брати: `h2 ~ p`
--   **Групування**: `h1, h2, h3 {}`
-
-**Специфічність**:
-
--   inline style: 1000
--   id: 100
--   class/attr/pseudo-class: 10
--   тег/псевдоелемент: 1
-
----
-
-## 6. Базові властивості: кольори, фони, шрифти, відступи, розміри, межі <a name="базові-властивості"></a>
+### Box Model
 
 ```css
-body {
-    color: #222;
-    background-color: #f9f9f9;
-    font-family: "Roboto", Arial, sans-serif;
-    font-size: 18px;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
-    border: 2px solid #eee;
-}
+margin: 10px 20px;
+padding: 1em 2em;
+border: 1px solid #ccc;
+border-radius: 8px;
+box-sizing: border-box;
+width: 100vw;
+height: 50vh;
 ```
 
--   **Відступи**: margin, padding
--   **Межі**: border, border-radius, border-style, border-color, outline
--   **Фон**: background, background-image, background-size, background-position, background-repeat
--   **Тіні**: box-shadow, text-shadow
-
----
-
-## 7. Боксова модель, box-sizing, overflow <a name="боксова-модель"></a>
-
--   **Боксова модель**: content → padding → border → margin
--   **box-sizing: border-box** — padding і border враховуються у width/height.
--   **overflow**: визначає, що робити з контентом, який “вилазить” за межі блока.
+### Layout: Display, Position, Float
 
 ```css
-.box {
-    width: 300px;
-    padding: 20px;
-    border: 2px solid #333;
-    margin: 10px;
-    box-sizing: border-box;
-    overflow: auto;
-}
+display: block;
+display: inline-block;
+display: flex;
+display: grid;
+float: right;
+clear: both;
+position: relative;
+top: 10px;
+left: 20px;
+z-index: 100;
+overflow: auto;
 ```
 
----
-
-## 8. Позиціонування: static, relative, absolute, fixed, sticky; z-index <a name="позиціонування"></a>
+### Flexbox
 
 ```css
-.relative {
-    position: relative;
-    left: 20px;
-    top: 10px;
-}
-.absolute {
-    position: absolute;
-    right: 10px;
-    top: 30px;
-}
-.fixed {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-.sticky {
-    position: sticky;
-    top: 0;
-}
-```
-
--   **z-index** — порядок накладання (тільки для позиціонованих елементів).
-
----
-
-## 9. Розмітка: display, float, clear, visibility, opacity, outline <a name="розмітка"></a>
-
--   **display**: block, inline, inline-block, none, flex, grid, contents
--   **float**: left, right
--   **clear**: left, right, both
--   **visibility**: visible, hidden, collapse
--   **opacity**: 0 (прозорий) — 1 (непрозорий)
--   **outline**: обводка (не впливає на розмір)
-
----
-
-## 10. Flexbox: синтаксис, властивості, приклади <a name="flexbox"></a>
-
-```css
-.flex-container {
+.container {
     display: flex;
-    flex-direction: row; /* або column */
-    justify-content: space-between; /* вирівнювання по осі X */
-    align-items: center; /* вирівнювання по осі Y */
-    gap: 24px;
-}
-.flex-item {
-    flex: 1 1 0; /* grow, shrink, basis */
-    align-self: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 ```
 
--   **order**: порядок елемента
--   **flex-wrap**: wrap, nowrap
-
----
-
-## 11. Grid: синтаксис, властивості, приклади <a name="grid"></a>
+### Grid
 
 ```css
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 150px;
-    gap: 20px;
-}
-.grid-item {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 100px;
+    grid-gap: 10px;
     grid-area: header;
 }
 ```
 
--   **justify-items**, **align-items**, **place-items**
--   **grid-auto-flow**: row, column, dense
-
----
-
-## 12. Псевдокласи, псевдоелементи, advanced-селектори <a name="псевдокласи"></a>
-
--   **Псевдокласи**: :hover, :active, :focus, :visited, :checked, :nth-child(), :not(), :disabled, :first-of-type
--   **Псевдоелементи**: ::before, ::after, ::first-letter, ::first-line, ::placeholder
+### Effects
 
 ```css
-a:hover {
-    color: red;
-}
-input:focus {
-    outline: 2px solid blue;
-}
-li:nth-child(even) {
-    background: #eee;
-}
-span::before {
-    content: "→ ";
-}
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+filter: blur(2px);
+transform: scale(1.1) rotate(15deg);
+transition: color 0.3s, background 0.3s;
 ```
 
 ---
 
-## 13. Транзиції, анімації, keyframes <a name="анімації"></a>
-
--   **Транзиція**:
-    ```css
-    .btn {
-        transition: background 0.3s, color 0.3s;
-    }
-    .btn:hover {
-        background: #333;
-        color: #fff;
-    }
-    ```
--   **Анімація**:
-    ```css
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-    .logo {
-        animation: pulse 2s infinite;
-    }
-    ```
-
----
-
-## 14. Медіа-запити, адаптивність, responsive design <a name="медіа-запити"></a>
+## 3. Responsive Design
 
 ```css
 @media (max-width: 600px) {
-    .menu {
-        flex-direction: column;
-    }
     body {
-        font-size: 16px;
+        font-size: 14px;
+    }
+    .sidebar {
+        display: none;
+    }
+}
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
     }
 }
 ```
 
--   **min-width / max-width** — mobile first!
--   **orientation, print, hover, pointer** — для специфічних пристроїв
+-   Use media queries for mobile-first design.
 
 ---
 
-## 15. Змінні, функції, calc(), custom properties <a name="змінні-функції"></a>
+## 4. Variables
 
--   **CSS-змінні (custom properties):**
-    ```css
-    :root {
-        --main-color: #09f;
-        --gap: 20px;
-    }
-    .title {
-        color: var(--main-color);
-        margin-bottom: var(--gap);
-    }
-    ```
--   **calc()**:
-    ```css
-    .box {
-        width: calc(100% - 40px);
-    }
-    ```
--   **clamp()** для адаптивних розмірів:
-    ```css
-    font-size: clamp(14px, 4vw, 24px);
-    ```
+### CSS Custom Properties
+
+```css
+:root {
+    --primary: #3498db;
+    --padding: 1rem;
+}
+.button {
+    color: var(--primary);
+    padding: var(--padding);
+}
+```
+
+### SCSS Variables
+
+```scss
+$primary: #e74c3c;
+$padding: 1rem;
+.button {
+    color: $primary;
+    padding: $padding;
+}
+```
 
 ---
 
-## 16. SCSS: основи, вкладеність, змінні, міксіни, extend, функції, оператори, цикли <a name="scss"></a>
+## 5. SCSS Features
 
--   **Змінні:**
-    ```scss
-    $main-color: #09f;
-    $padding: 24px;
-    ```
--   **Вкладеність:**
-    ```scss
-    nav {
-        ul {
-            margin: 0;
-        }
+### Nesting
+
+```scss
+nav {
+    ul {
         li {
-            display: inline-block;
+            a {
+                color: $primary;
+                &:hover {
+                    color: darken($primary, 10%);
+                }
+            }
         }
     }
-    ```
--   **Міксіни:**
-    ```scss
-    @mixin flex-center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .header {
-        @include flex-center;
-    }
-    ```
--   **Extend:**
-    ```scss
-    %btn-base {
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .btn {
-        @extend %btn-base;
-    }
-    ```
--   **Функції:**
-    ```scss
-    $darker: darken($main-color, 10%);
-    ```
--   **Оператори:**
-    ```scss
-    .col {
-        width: (100% / 3);
-    }
-    ```
--   **Цикли:**
-    ```scss
-    @for $i from 1 through 3 {
-        .m-#{$i} {
-            margin: #{$i * 10}px;
-        }
-    }
-    ```
+}
+```
+
+### Mixins
+
+```scss
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header {
+    @include flex-center;
+}
+```
+
+### Extends
+
+```scss
+%btn-base {
+    padding: 0.5em 1em;
+    border-radius: 4px;
+}
+.button {
+    @extend %btn-base;
+}
+```
+
+### Functions
+
+```scss
+@function rem($px) {
+    @return $px / 16 * 1rem;
+}
+.text {
+    font-size: rem(18);
+}
+```
+
+### Import & Use
+
+```scss
+@import "variables";
+@use "mixins";
+```
 
 ---
 
-## 17. Advanced: кастомні властивості, clamp/fit-content/min/max, CSS Houdini, CSS-in-JS, ізоляція стилів, performance <a name="advanced"></a>
+## 6. Animations
 
--   **clamp(), min(), max()** — для адаптивних значень.
--   **fit-content** — обрізка/розтягування блоку по контенту.
-    ```css
-    .card {
-        width: fit-content;
+```css
+@keyframes fadein {
+    0% {
+        opacity: 0;
     }
-    ```
--   **CSS Houdini** — API для створення власних CSS-властивостей.
--   **CSS-in-JS** — стилізація компонентів прямо у JS (Styled Components, Emotion).
--   **Ізоляція стилів:** shadow DOM, BEM, CSS Modules.
--   **Performance:** мінімізація селекторів, low specificity, уникати великих вкладеностей, не зловживати heavy-ефектами.
+    100% {
+        opacity: 1;
+    }
+}
+.fade {
+    animation: fadein 1.5s ease-in;
+}
+```
+
+-   Combine with `transition` for smooth effects.
 
 ---
 
-## 18. Типові помилки, антипатерни, best practices <a name="типові-помилки"></a>
+## 7. Custom Fonts
 
--   Зловживання `!important`, inline-стилями.
--   div-суп (все у div, нема семантики).
--   Глибока вкладеність у SCSS (>3-4 рівнів).
--   Відсутність адаптивності.
--   Неунікальні імена класів/id.
--   Дублювання коду, не використання міксінів/змінних.
--   Перевантаження специфічності селекторів.
--   Незрозумілі/“одноразові” імена класів.
-
----
-
-## 19. Практичні поради, методології (BEM, SMACSS, OOCSS) <a name="практичні-поради"></a>
-
--   Структуруй стилі: спочатку reset/normalize, потім базові стилі, далі компоненти/модулі.
--   Використовуй BEM для класів: `.block__element--modifier`
--   Винось кольори/відступи/шрифти у змінні.
--   Пиши DRY-код: повторювані блоки — через міксіни або компоненти.
--   Використовуй SCSS для великих проектів.
--   Для адаптивності — mobile first, потім розширюй.
--   Перевіряй стилі на [CSS Validator](https://jigsaw.w3.org/css-validator/).
--   Для великих проектів — розбивай SCSS на partials (`_header.scss`, `_footer.scss`).
+```css
+@font-face {
+    font-family: "MyFont";
+    src: url("myfont.woff2") format("woff2");
+}
+body {
+    font-family: "MyFont", Arial, sans-serif;
+}
+```
 
 ---
 
-## 20. Корисні ресурси <a name="корисні-ресурси"></a>
+## 8. Utility Classes
 
--   [MDN Web Docs: CSS](https://developer.mozilla.org/uk/docs/Web/CSS)
--   [CSS Tricks](https://css-tricks.com/)
--   [Sass офіційно](https://sass-lang.com/)
--   [Flexbox Froggy](https://flexboxfroggy.com/)
--   [Grid Garden](https://cssgridgarden.com/)
+```css
+.mt-4 {
+    margin-top: 4rem;
+}
+.text-center {
+    text-align: center;
+}
+.w-100 {
+    width: 100%;
+}
+.d-none {
+    display: none;
+}
+```
+
+---
+
+## 9. CSS Specificity
+
+-   Inline style > ID > Class > Type > Universal
+-   Use specificity calculator: [https://polypane.app/css-specificity-calculator/](https://polypane.app/css-specificity-calculator/)
+
+---
+
+## 10. CSS Variables vs. SCSS Variables
+
+| Feature           | CSS Variables                             | SCSS Variables   |
+| ----------------- | ----------------------------------------- | ---------------- |
+| Dynamic (runtime) | ✔️                                        | ❌               |
+| Scoped            | ✔️                                        | ❌ (global only) |
+| JS Access         | `element.style.getPropertyValue('--var')` | ❌               |
+| Compilation       | ❌                                        | ✔️               |
+
+---
+
+## 11. CSS Grid vs Flexbox
+
+| Feature        | Flexbox         | Grid                 |
+| -------------- | --------------- | -------------------- |
+| Axis           | 1D (row/column) | 2D (row+column)      |
+| Complex Layout | ❌              | ✔️                   |
+| Responsive     | ✔️              | ✔️                   |
+| Subgrid        | ❌              | ✔️ (modern browsers) |
+
+---
+
+## 12. Best Practices
+
+-   Use BEM naming (`.block__elem--mod`).
+-   Prefer classes, avoid IDs for styling.
+-   Keep style modular and DRY.
+-   Use preprocessors (SCSS) for large projects.
+-   Minify CSS for production.
+-   Use logical properties: `margin-inline`, `padding-block`.
+
+---
+
+## 13. Tools & Resources
+
+-   [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS)
+-   [Sass Official](https://sass-lang.com/)
+-   [Autoprefixer](https://github.com/postcss/autoprefixer)
 -   [Can I use](https://caniuse.com/)
--   [smacss.com](https://smacss.com/)
--   [bem.info](https://en.bem.info/)
+-   [CSS Tricks](https://css-tricks.com/)
 
 ---
 
-**CSS — це не просто “пофарбувати фон”. Глибоке знання CSS/SCSS допоможе робити красиві, підтримувані, адаптивні і швидкі інтерфейси.**
+## 14. Interoperability Table
+
+| Feature      | CSS/SCSS  | HTML | JS/TS | Vue/Angular/Nuxt | Node/Express | Django/Python | Electron |
+| ------------ | --------- | ---- | ----- | ---------------- | ------------ | ------------- | -------- |
+| Styling      | ✔️        |      |       | ✔️ (scoped)      | (static)     | (static)      | ✔️       |
+| Dynamic      |           |      | ✔️    | ✔️               |              |               | ✔️       |
+| Preprocessor | ✔️ (SCSS) |      |       | ✔️               |              |               | ✔️       |
