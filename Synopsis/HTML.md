@@ -1,334 +1,394 @@
-# Ultimate HTML Cheat Sheet
-
-## ⭐ Description
-
-HTML (HyperText Markup Language) is the standard markup language for creating web pages. It defines the structure of content and is the foundation of every website.
-
-## ⭐ Relationship With Other Technologies
-
--   CSS/SCSS styles HTML elements.
--   JS/TS manipulates the DOM, created by HTML.
--   Vue, Angular, Nuxt, Electron use HTML-based templates for UI.
--   Express/Node serve/generate HTML.
--   Django/Python render HTML via templates.
--   Electron uses HTML for desktop app windows.
+# HTML (HyperText Markup Language) — сучасний конспект
 
 ---
 
-## 1. Document Structure
+## Зміст
+
+-   [Вступ](#вступ)
+-   [Основи HTML](#основи-html)
+-   [Структура HTML-документа](#структура-html-документа)
+-   [Семантичні теги](#семантичні-теги)
+-   [Текстові елементи](#текстові-елементи)
+-   [Списки](#списки)
+-   [Посилання](#посилання)
+-   [Зображення, відео, аудіо](#зображення-відео-аудіо)
+-   [Форми](#форми)
+-   [Таблиці](#таблиці)
+-   [Мультимедіа та інтерактивність](#мультимедіа-та-інтерактивність)
+-   [Атрибути](#атрибути)
+-   [Валідація HTML](#валідація-html)
+-   [Best Practices](#best-practices)
+-   [Типові помилки та їх уникнення](#типові-помилки-та-їх-уникнення)
+-   [FAQ](#faq)
+-   [Корисні ресурси](#корисні-ресурси)
+-   [Короткий підсумок](#короткий-підсумок)
+
+---
+
+## Вступ
+
+**HTML (HyperText Markup Language)** — це стандартна мова розмітки для створення веб-сторінок і веб-додатків. HTML визначає структуру контенту на сторінці за допомогою елементів (tags). Сучасна версія — **HTML5** — значно розширила можливості мови, зробила її більш семантичною та інтерактивною.
+
+---
+
+## Основи HTML
+
+HTML складається з елементів (tags), що описують структуру і зміст сторінки. Кожен елемент має відкриваючий (`<tag>`) і закриваючий (`</tag>`) тег (виняток — самозакриваючі теги, як `<img />`).
+
+### Приклад базового HTML-документа
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
     <head>
         <meta charset="UTF-8" />
-        <title>Page Title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="styles.css" />
-        <script src="main.js" defer></script>
+        <title>Мій перший сайт</title>
     </head>
     <body>
-        <!-- Page content -->
+        <h1>Вітаю на моєму сайті!</h1>
+        <p>Це приклад сучасної розмітки HTML5.</p>
     </body>
 </html>
 ```
 
-### Key Tags
-
--   `<!DOCTYPE html>`: Declares HTML5.
--   `<html lang="en">`: Root element. `lang` for accessibility/SEO.
--   `<head>`: Metadata, links, scripts.
--   `<body>`: Visible content.
-
 ---
 
-## 2. Text, Headings & Formatting
+## Структура HTML-документа
 
-### Headings
+-   `<!DOCTYPE html>` — визначає документ як HTML5.
+-   `<html lang="uk">` — кореневий елемент, атрибут `lang` задає мову.
+-   `<head>` — містить метадані (charset, viewport, title тощо).
+-   `<body>` — основний контент сторінки.
 
-```html
-<h1>Title</h1>
-<h2>Subtitle</h2>
-<h3>Section</h3>
-```
+### Схема структури
 
--   Use only one `<h1>` per page for SEO.
-
-### Paragraphs & Formatting
-
-```html
-<p>Paragraph text</p>
-<strong>Bold</strong>
-<em>Italic</em>
-<u>Underline</u>
-<s>Strikethrough</s>
-<mark>Highlight</mark>
-<sub>Subscript</sub>
-<sup>Superscript</sup>
-<small>Small print</small>
-<abbr title="HyperText Markup Language">HTML</abbr>
-<blockquote cite="https://example.com">Quote</blockquote>
-<pre>
-  Preformatted text
-</pre>
-<code>inline code</code>
+```plaintext
+<!DOCTYPE html>
+|_ <html>
+   |_ <head>
+   |_ <body>
 ```
 
 ---
 
-## 3. Lists
+## Семантичні теги
 
-### Unordered, Ordered, Definition
+HTML5 додав багато семантичних тегів для кращої організації і SEO:
+
+-   `<header>` — шапка сторінки чи секції.
+-   `<nav>` — навігаційне меню.
+-   `<main>` — основний контент.
+-   `<section>` — розділ сторінки.
+-   `<article>` — незалежний матеріал (стаття, пост).
+-   `<aside>` — додатковий контент (сайдбар).
+-   `<footer>` — підвал сторінки.
+
+### Приклад семантичної розмітки
+
+```html
+<body>
+    <header>
+        <h1>HTML5 Семантика</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#main">Головна</a></li>
+            <li><a href="#about">Про нас</a></li>
+        </ul>
+    </nav>
+    <main id="main">
+        <section>
+            <h2>Стаття</h2>
+            <article>
+                <h3>Огляд HTML5</h3>
+                <p>HTML5 — сучасний стандарт розмітки.</p>
+            </article>
+        </section>
+        <aside>
+            <p>Сайдбар з цікавими фактами.</p>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2025 Всі права захищені.</p>
+    </footer>
+</body>
+```
+
+---
+
+## Текстові елементи
+
+-   `<h1>` — `<h6>` — заголовки (від найважливішого до менш важливого).
+-   `<p>` — абзац.
+-   `<span>` — інлайн-елемент для групування тексту.
+-   `<strong>` — виділення важливого тексту (семантичний, не лише жирний).
+-   `<em>` — акцент (семантичний курсив).
+-   `<br />` — розрив рядка.
+
+### Приклад
+
+```html
+<h2>Заголовок секції</h2>
+<p>Це <strong>важливий</strong> текст, а це <em>виділений</em> текст.</p>
+<span>Інлайн-елемент для стилізації</span>
+```
+
+---
+
+## Списки
+
+-   **Нумерований** (ordered): `<ol>`
+-   **Маркерований** (unordered): `<ul>`
+-   **Описовий** (description): `<dl>`
+
+### Приклади
 
 ```html
 <ul>
-    <li>Item</li>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
 </ul>
-<ol type="I" reversed>
-    <li>First</li>
-    <li>Second</li>
+
+<ol>
+    <li>Підготувати контент</li>
+    <li>Створити розмітку</li>
+    <li>Перевірити валідність</li>
 </ol>
+
 <dl>
-    <dt>Term</dt>
-    <dd>Definition</dd>
+    <dt>HTML</dt>
+    <dd>Мова розмітки для структурування контенту.</dd>
 </dl>
 ```
 
--   Nest lists for complex structures.
-
 ---
 
-## 4. Links & Navigation
+## Посилання
+
+-   `<a href="URL">...</a>` — основний тег для створення гіперпосилань.
+
+### Важливі атрибути:
+
+-   `href` — адреса
+-   `target="_blank"` — відкриття у новій вкладці
+-   `rel="noopener noreferrer"` — безпека для зовнішніх посилань
+
+#### Приклад
 
 ```html
-<a href="https://example.com" target="_blank" rel="noopener noreferrer"
-    >External Link</a
+<a
+    href="https://developer.mozilla.org/"
+    target="_blank"
+    rel="noopener noreferrer"
 >
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-    </ul>
-</nav>
+    Документація MDN Web Docs
+</a>
 ```
-
--   Use `rel="noopener noreferrer"` for security with `target="_blank"`.
 
 ---
 
-## 5. Images, Audio, Video
+## Зображення, відео, аудіо
+
+-   `<img src="..." alt="...">` — зображення
+-   `<video src="..." controls></video>` — відео
+-   `<audio src="..." controls></audio>` — аудіо
+
+### Атрибути
+
+-   `alt` — опис для зображень (важливо для доступності!)
+-   `controls` — показує елементи керування для медіа
+
+#### Приклад
 
 ```html
-<img src="pic.jpg" alt="Description" width="400" height="300" loading="lazy" />
-<picture>
-    <source srcset="pic.webp" type="image/webp" />
-    <img src="pic.jpg" alt="Fallback" />
-</picture>
+<img src="photo.jpg" alt="Фотографія природи" />
 
-<audio src="audio.mp3" controls loop></audio>
-<video src="video.mp4" controls poster="poster.jpg" width="600"></video>
+<video src="video.mp4" controls poster="preview.jpg">
+    Ваш браузер не підтримує відео.
+</video>
+
+<audio src="audio.mp3" controls>Ваш браузер не підтримує аудіо.</audio>
 ```
-
--   Always set `alt` for images.
--   Use `<picture>` for responsive images.
 
 ---
 
-## 6. Tables
+## Форми
+
+Форми дозволяють взаємодіяти з користувачем.
+
+-   `<form>` — контейнер для елементів форми
+-   `<input>` — поля вводу
+-   `<textarea>` — багаторядкове поле
+-   `<select>` — випадаючий список
+-   `<button>` — кнопка
+
+### Приклад сучасної форми
+
+```html
+<form action="/submit" method="POST" autocomplete="on">
+    <label for="name">Ім'я:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="message">Повідомлення:</label>
+    <textarea id="message" name="message" rows="4"></textarea>
+
+    <button type="submit">Надіслати</button>
+</form>
+```
+
+#### Сучасні типи input
+
+-   `type="email"`
+-   `type="number"`
+-   `type="date"`
+-   `type="range"`
+-   `type="file"`
+
+---
+
+## Таблиці
+
+Використовуються для структурованих даних, не для layout!
+
+-   `<table>` — таблиця
+-   `<tr>` — рядок
+-   `<th>` — заголовок стовпця
+-   `<td>` — комірка
+
+### Приклад
 
 ```html
 <table>
-    <caption>
-        Monthly Sales
-    </caption>
     <thead>
         <tr>
-            <th>Month</th>
-            <th>Sales</th>
+            <th>Ім'я</th>
+            <th>Email</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Jan</td>
-            <td>$1000</td>
+            <td>Олексій</td>
+            <td>alex@email.com</td>
+        </tr>
+        <tr>
+            <td>Марія</td>
+            <td>maria@email.com</td>
         </tr>
     </tbody>
-    <tfoot>
-        <tr>
-            <td>Total</td>
-            <td>$1000</td>
-        </tr>
-    </tfoot>
 </table>
 ```
 
--   Use `<thead>`, `<tbody>`, `<tfoot>` for accessibility and clarity.
-
 ---
 
-## 7. Forms
+## Мультимедіа та інтерактивність
+
+HTML5 дозволяє легко додавати інтерактивні елементи:
+
+-   `<canvas>` — 2D/3D графіка (через JS)
+-   `<svg>` — векторна графіка
+-   `<details>` + `<summary>` — розкриваючі блоки
+
+### Приклад
 
 ```html
-<form action="/submit" method="post" autocomplete="on" novalidate>
-    <fieldset>
-        <legend>Login</legend>
-        <label for="user">Name:</label>
-        <input type="text" id="user" name="user" required />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="pwd" />
-        <input type="checkbox" name="remember" /> Remember Me
-        <input type="radio" name="gender" value="male" /> Male
-        <input type="radio" name="gender" value="female" /> Female
-        <select name="country" multiple>
-            <option value="us">USA</option>
-            <option value="uk">UK</option>
-        </select>
-        <textarea name="message" rows="4"></textarea>
-        <input type="file" name="avatar" accept="image/png, image/jpeg" />
-        <button type="submit">Login</button>
-        <button type="reset">Reset</button>
-    </fieldset>
-</form>
-```
+<details>
+    <summary>Показати додаткову інформацію</summary>
+    <p>Тут прихований контент!</p>
+</details>
 
--   Use `<fieldset>` & `<legend>` for grouping.
--   Always use `<label>` for accessibility.
-
----
-
-## 8. Semantic Elements
-
-```html
-<header>Site header</header>
-<nav>Main navigation</nav>
-<main>Main content</main>
-<aside>Sidebar</aside>
-<article>Blog post</article>
-<section>Section of content</section>
-<figure>
-    <img src="img.jpg" alt="" />
-    <figcaption>Image caption</figcaption>
-</figure>
-<footer>Footer</footer>
-<time datetime="2025-08-01">August 1, 2025</time>
-```
-
--   Improves SEO and accessibility.
-
----
-
-## 9. Metadata & SEO
-
-```html
-<meta charset="UTF-8" />
-<meta name="description" content="Ultimate HTML Cheat Sheet" />
-<meta name="keywords" content="HTML, Cheat Sheet, Web Development" />
-<meta name="author" content="Ooodysseus" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta property="og:title" content="HTML Cheat Sheet" />
-<meta property="og:image" content="preview.jpg" />
-<link rel="icon" type="image/png" href="favicon.png" />
-<link rel="canonical" href="https://example.com/html-cheat-sheet" />
+<canvas id="demo" width="200" height="100"></canvas>
 ```
 
 ---
 
-## 10. Accessibility
+## Атрибути
 
--   Use semantic elements (`<main>`, `<nav>`, `<footer>`, etc.)
--   Label all form elements.
--   Use `alt` attributes for images.
--   ARIA roles for complex widgets:
-    ```html
-    <div role="dialog" aria-labelledby="dialog1Title"></div>
-    <button aria-label="Close"></button>
-    ```
--   Use keyboard-accessible elements.
+Атрибути — додаткові дані для елементів:
 
----
+-   Глобальні: `id`, `class`, `style`, `title`, `data-*`
+-   Для доступності: `aria-*`, `role`
 
-## 11. Custom Data Attributes
+#### Приклад з data-атрибутом
 
 ```html
-<div data-user-id="42" data-role="admin"></div>
-```
-
--   Useful for passing extra info to JS.
-
----
-
-## 12. Embedding & Integration
-
-```html
-<iframe
-    src="https://www.youtube.com/embed/xyz"
-    width="560"
-    height="315"
-></iframe>
-<embed src="file.pdf" type="application/pdf" />
-<object data="file.swf"></object>
-<canvas id="draw"></canvas>
+<div data-user-id="123" class="card">Картка користувача</div>
 ```
 
 ---
 
-## 13. Entities
+## Валідація HTML
 
-| Entity | Code      | Output |
-| ------ | --------- | ------ |
-| Space  | `&nbsp;`  |        |
-| <      | `&lt;`    | <      |
-| >      | `&gt;`    | >      |
-| &      | `&amp;`   | &      |
-| "      | `&quot;`  | "      |
-| '      | `&apos;`  | '      |
-| ©      | `&copy;`  | ©      |
-| ®      | `&reg;`   | ®      |
-| ™      | `&trade;` | ™      |
+Валідація — перевірка коректності розмітки.
+
+-   Використовуйте [W3C Validator](https://validator.w3.org/)
+-   Помилки: не закриті теги, відсутні атрибути, дублікати id
 
 ---
 
-## 14. Comments
+## Best Practices
 
-```html
-<!-- This is an HTML comment -->
-```
-
----
-
-## 15. Advanced Features
-
--   `<template>`: Invisible content for client-side rendering.
--   `<noscript>`: Fallback when JS is disabled.
--   `<dialog>`: Native modal dialogs.
--   `<details>` & `<summary>`: Expand/collapse sections.
+-   Використовуйте **семантичні теги** для структури.
+-   Додавайте **alt-атрибути** для всіх зображень.
+-   Використовуйте **доступні атрибути** (`aria-*`), особливо для інтерактивних елементів.
+-   Уникайте використання таблиць для layout.
+-   Не перевантажуйте сторінку зайвими тегами.
+-   Валідуйте HTML перед публікацією.
+-   Використовуйте сучасний синтаксис (HTML5).
+-   Організовуйте код з відступами та коментарями.
 
 ---
 
-## 16. Best Practices
+## Типові помилки та їх уникнення
 
--   Use semantic tags for structure and SEO.
--   Accessibility: label everything, test with screen readers.
--   Separate HTML (structure), CSS (style), JS (behavior).
--   Validate your HTML markup (W3C validator).
--   Use proper indentation and comments.
--   Avoid inline styles/scripts.
-
----
-
-## 17. Tools & Resources
-
--   [MDN HTML Reference](https://developer.mozilla.org/en-US/docs/Web/HTML)
--   [W3C Validator](https://validator.w3.org/)
--   [Can I use](https://caniuse.com/)
--   [Google Lighthouse](https://developers.google.com/web/tools/lighthouse)
+| Помилка                             | Як уникнути                                       |
+| ----------------------------------- | ------------------------------------------------- |
+| Відсутній alt у <img>               | Завжди додавайте опис                             |
+| Дублікати id                        | Використовуйте унікальні id                       |
+| Використання <b> замість <strong>   | Віддавайте перевагу семантичним тегам             |
+| Таблиці для layout                  | Використовуйте CSS Grid/Flexbox                   |
+| Відсутня мова в <html lang="...">   | Вказуйте lang для SEO і доступності               |
+| Не закриті теги                     | Перевіряйте розмітку, використовуйте автозакриття |
+| Старі атрибути (наприклад, bgcolor) | Застосовуйте CSS для стилів                       |
 
 ---
 
-## 18. Comparison Table
+## FAQ
 
-| Feature        | HTML | CSS/SCSS | JS/TS | Vue/Angular/Nuxt | Express/Node | Django/Python  | Electron |
-| -------------- | ---- | -------- | ----- | ---------------- | ------------ | -------------- | -------- |
-| Structure      | ✔️   |          |       | ✔️ (templates)   | ✔️ (serve)   | ✔️ (templates) | ✔️ (UI)  |
-| Styling        |      | ✔️       |       | ✔️ (scoped)      | (static)     | (static)       | ✔️       |
-| Logic/Behavior |      |          | ✔️    | ✔️               | ✔️           | ✔️             | ✔️       |
-| Desktop        |      | ✔️       | ✔️    |                  |              |                | ✔️       |
+**Q: Чим відрізняється HTML5 від попередніх версій?**  
+A: Семантичні теги, вбудовані відео/аудіо, гнучкі форми, інтерактивність, API (Canvas, Geolocation тощо).
+
+**Q: Який тег для основного контенту сторінки?**  
+A: `<main>`
+
+**Q: Як зробити сайт доступним для людей з інвалідністю?**  
+A: Використовуйте семантику, aria-атрибути, alt-опис для зображень, правильну структуру.
+
+**Q: Чи можна стилізувати елементи HTML?**  
+A: Так, через CSS (Cascading Style Sheets).
+
+**Q: Як уникнути дублювання id?**  
+A: Ведіть облік, використовуйте унікальні значення для кожного елемента.
+
+---
+
+## Корисні ресурси
+
+-   [Офіційна документація HTML на MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTML)
+-   [W3Schools HTML Tutorial](https://www.w3schools.com/html/)
+-   [HTML Living Standard](https://html.spec.whatwg.org/)
+-   [WebAIM — Доступність HTML](https://webaim.org/techniques/html/)
+-   [W3C Markup Validation Service](https://validator.w3.org/)
+-   [CSS Tricks — Семантична розмітка](https://css-tricks.com/semantic-html5-elements/)
+
+---
+
+## Короткий підсумок
+
+HTML — це основа будь-якої веб-сторінки. Важливо писати чисту, валідну і семантичну розмітку, використовувати сучасні елементи HTML5, піклуватися про доступність та організацію контенту. Обирайте найкращі практики і не забувайте про валідацію перед публікацією. Семантика, доступність і сучасний підхід — ключ до якісного вебу!
+
+---
