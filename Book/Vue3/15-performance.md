@@ -1,0 +1,1 @@
+# Performance: оптимізація, code splitting
