@@ -6,36 +6,19 @@
 
 ## Історія/Походження
 
-Перші версії HTML містили лише базові елементи форм. З розвитком стандарту додано нові типи input, атрибути для валідації, інтеграцію з API, семантику, доступність.
-
 ### Віхи розвитку форм
 
 -   **HTML 2.0:** `<form>`, `<input>`, `<textarea>`, `<select>`, `<button>`
--   **HTML5:** нові типи input (`email`, `date`, `range`, `color`), атрибути для валідації, автозаповнення
-
-## Основний матеріал
 
 ### Тег <form>
 
--   `<form action="..." method="...">` — контейнер для елементів форми
--   Атрибути: `action`, `method`, `enctype`, `autocomplete`, `novalidate`
-
 ### Тег <input>
 
--   `<input type="...">` — універсальний елемент для введення
--   Типи: `text`, `password`, `email`, `number`, `date`, `range`, `color`, `checkbox`, `radio`, `file`, `hidden`, `submit`, `reset`
--   Атрибути: `name`, `value`, `placeholder`, `required`, `readonly`, `disabled`, `min`, `max`, `step`, `pattern`, `autocomplete`
-
 ### Тег <textarea>
-
--   `<textarea>` — багаторядковий текст
--   Атрибути: `name`, `rows`, `cols`, `placeholder`, `required`, `readonly`, `disabled`, `maxlength`
 
 ### Тег <select>
 
 -   `<select>` — випадаючий список
--   Атрибути: `name`, `multiple`, `required`, `disabled`, `size`
--   Вкладені теги: `<option>`, `<optgroup>`
 
 ### Тег <button>
 
