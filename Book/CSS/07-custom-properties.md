@@ -1,1 +1,0 @@
-# Змінні: CSS Custom Properties

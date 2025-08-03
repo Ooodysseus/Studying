@@ -1,1 +1,0 @@
-# SSR, SSG, ISG, CSR

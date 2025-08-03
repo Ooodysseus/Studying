@@ -1,1 +1,0 @@
-# Memory model, garbage collection
