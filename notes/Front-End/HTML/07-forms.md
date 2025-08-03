@@ -18,18 +18,9 @@
 
 ### Тег <select>
 
--   `<select>` — випадаючий список
-
 ### Тег <button>
 
--   `<button>` — кнопка для дій
--   Типи: `submit`, `reset`, `button`
--   Атрибути: `type`, `name`, `value`, `disabled`, `aria-label`
-
 ### Семантика та доступність
-
--   Атрибути `aria-label`, `aria-describedby`, `aria-required` — для скрінрідерів
--   Лейбли: `<label for="...">` — зв’язок з елементом форми
 
 ## Приклад коду
 
