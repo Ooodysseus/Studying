@@ -1,26 +1,60 @@
 # Форми: <form>, input, textarea, select, button
 
+---
+
 ## Вступ
 
 Форми — основний механізм збору даних у вебі. Вони забезпечують взаємодію користувача з сайтом, дозволяють надсилати інформацію, реєструватися, здійснювати пошук, оформлювати замовлення.
 
+---
+
 ## Історія/Походження
+
+Перші версії HTML містили лише базові елементи форм. З розвитком стандарту додано нові типи input, атрибути для валідації, інтеграцію з API, семантику, доступність.
 
 ### Віхи розвитку форм
 
 -   **HTML 2.0:** `<form>`, `<input>`, `<textarea>`, `<select>`, `<button>`
+-   **HTML5:** нові типи input (`email`, `date`, `range`, `color`), атрибути для валідації, автозаповнення
 
-### Тег <form>
+---
 
-### Тег <input>
+## Основний матеріал
 
-### Тег <textarea>
+### Тег `<form>`
 
-### Тег <select>
+-   `<form action="..." method="...">` — контейнер для елементів форми
+-   Атрибути: `action`, `method`, `enctype`, `autocomplete`, `novalidate`
 
-### Тег <button>
+### Тег `<input>`
+
+-   `<input type="...">` — універсальний елемент для введення
+-   Типи: `text`, `password`, `email`, `number`, `date`, `range`, `color`, `checkbox`, `radio`, `file`, `hidden`, `submit`, `reset`
+-   Атрибути: `name`, `value`, `placeholder`, `required`, `readonly`, `disabled`, `min`, `max`, `step`, `pattern`, `autocomplete`
+
+### Тег `<textarea>`
+
+-   `<textarea>` — багаторядковий текст
+-   Атрибути: `name`, `rows`, `cols`, `placeholder`, `required`, `readonly`, `disabled`, `maxlength`
+
+### Тег `<select>`
+
+-   `<select>` — випадаючий список
+-   Атрибути: `name`, `multiple`, `required`, `disabled`, `size`
+-   Вкладені теги: `<option>`, `<optgroup>`
+
+### Тег `<button>`
+
+-   `<button>` — кнопка для дій
+-   Типи: `submit`, `reset`, `button`
+-   Атрибути: `type`, `name`, `value`, `disabled`, `aria-label`
 
 ### Семантика та доступність
+
+-   Атрибути `aria-label`, `aria-describedby`, `aria-required` — для скрінрідерів
+-   Лейбли: `<label for="...">` — зв’язок з елементом форми
+
+---
 
 ## Приклад коду
 
@@ -120,6 +154,8 @@
 <input type="text" aria-label="Пошук" />
 ```
 
+---
+
 ## Пояснення під капотом
 
 Браузер парсить `<form>`, створює DOM-елементи, обробляє події (submit, change, input), інтегрує з API (FormData, Validation), забезпечує валідацію, автозаповнення, доступність. Атрибути керують поведінкою: required, pattern, autocomplete, readonly, disabled.
@@ -127,6 +163,8 @@
 ### Як працюють форми у рушії
 
 Форми інтегруються з рушієм браузера, обробляють події, надсилають дані на сервер, можуть взаємодіяти з JS (AJAX, fetch), впливають на UX, доступність, безпеку.
+
+---
 
 ## Нюанси та підводні камені
 
@@ -137,6 +175,8 @@
 -   Надмірне використання disabled — поганий UX
 -   Відсутність aria-атрибутів — недоступно для скрінрідерів
 -   Відсутність enctype для file — не надсилаються файли
+
+---
 
 ## Діаграми
 
@@ -162,6 +202,8 @@ graph LR
     Forms --> JS[Інтеграція з JS]
 ```
 
+---
+
 ## Приклад застосування в реальних проєктах
 
 -   Реєстрація — input, select, textarea, валідація
@@ -182,12 +224,16 @@ graph LR
 
 AJAX, fetch, FormData — для динамічного надсилання даних.
 
+---
+
 ## Крос-посилання
 
 -   [Посилання та навігація](./06-links-navigation.md)
 -   [Семантичний HTML](./03-semantic-tags.md)
 -   [Best practices](./10-best-practices.md)
 -   [Текстові елементи](./04-text.md)
+
+---
 
 ## Підсумок
 
