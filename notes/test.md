@@ -19,23 +19,23 @@
 
 ```mermaid
 graph TD
-    A[Глобальне лексичне оточення] --> B{Лексичне оточення `createCounter()`};
-    B -- `counter` є тут --> C{Лексичне оточення `increment()`};
-    C -- зберігає посилання --> B;
+    A[Глобальне лексичне оточення] --> B{Лексичне оточення createCounter()};
+    B -- "counter є тут" --> C{Лексичне оточення increment()};
+    C -- "зберігає посилання" --> B;
 
     subgraph "Global Scope"
         A
-        D[const myCounter = createCounter()]
+        D["const myCounter = createCounter()"]
     end
 
     subgraph "createCounter() Scope"
         B
-        E[let counter = 0]
+        E["let counter = 0"]
     end
 
     subgraph "increment() Scope"
         C
-        F[counter++]
+        F["counter++"]
     end
 
     style B fill:#f9f,stroke:#333,stroke-width:2px
